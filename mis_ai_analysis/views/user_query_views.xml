@@ -1,0 +1,50 @@
+<odoo>
+    <record id="view_ai_ama_search_query_tree" model="ir.ui.view">
+        <field name="name">ai.user.queries.tree</field>
+        <field name="model">ai.user.queries</field>
+        <field name="arch" type="xml">
+            <tree string="AI Search Queries">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="query_text"/>
+                <field name="shared_with_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ai_ama_search_query_form" model="ir.ui.view">
+        <field name="name">ai.user.queries.form</field>
+        <field name="model">ai.user.queries</field>
+        <field name="arch" type="xml">
+            <form string="Search Queries">
+                <sheet>
+                    <group>
+                        <field name="create_date"/>
+                        <field name="create_uid"/>
+                        <field name="query_text"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="result_from_db" widget="html"/>
+                        </group>
+                        <group>
+                            <field name="generated_query" widget="text"/>
+                        </group>
+                    </group>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_ai_ama_search_queriess" model="ir.actions.act_window">
+        <field name="name">AI Queries</field>
+        <field name="res_model">ai.user.queries</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+</odoo>

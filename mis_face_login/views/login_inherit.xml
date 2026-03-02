@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Combined MIS Custom Login + Face Recognition Button -->
+  <template id="custom_login_with_face" inherit_id="web.login" name="MIS Login with Face Recognition">
+
+    <!-- ====== Top Banner & Welcome Text ====== -->
+    <xpath expr="//form[@class='oe_login_form']" position="before">
+      <div class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}} text-center">
+        <img src="/mis_website/static/src/img/logo.png"
+             alt="Company Logo"
+             style="max-height:120px; max-width: 100%; width:auto"/>
+      </div>
+
+      <t t-if="not is_mobile">
+        <div class="text-shimmer text-center">Welcome To ST.ANNE'S</div>
+      </t>
+      <t t-else="">
+        <div class="text-shimmer text-center">Welcome To ST.ANNE'S App</div>
+      </t>
+
+      <style>
+        @keyframes shimmer {
+          0% { background-position: -200%; }
+          100% { background-position: 200%; }
+        }
+        .text-shimmer {
+          font-size: 24px;
+          font-weight: bold;
+          background: linear-gradient(90deg, #ff7e5f, #feb47b, #ff7e5f);
+          background-size: 200%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shimmer 3s infinite linear;
+        }
+      </style>
+<!--    </xpath>-->
+
+    <!-- ====== Insert Face Login Button ABOVE Username ====== -->
+<!--    <xpath expr="//form[@class='oe_login_form']/div[1]" position="before">-->
+      <div class="o_face_login_wrapper text-center mb-3">
+        <button type="button" id="o_face_login_btn" class="btn btn-secondary o_face_btn">
+          <i class="fa fa-camera"/> Login with Face
+        </button>
+
+        <div id="o_face_modal" class="o_face_modal" style="display:none;">
+          <div class="o_face_modal_body">
+            <div class="o_face_modal_header">
+              <span>Face Login</span>
+              <button type="button" id="o_face_close" class="btn-close">×</button>
+            </div>
+            <div class="o_face_modal_content">
+              <video id="o_face_video" autoplay="autoplay" playsinline="playsinline"></video>
+
+              <div class="o_face_actions">
+                <button id="o_face_capture" class="btn btn-primary">Scan &amp; Login</button>
+              </div>
+              <div id="o_face_result" class="o_face_result"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </xpath>
+
+    <!-- ====== Customize Username Field ====== -->
+    <xpath expr="//form[@class='oe_login_form']/div[2]" position="replace">
+      <div class="mb-3 field-login">
+        <label for="login" class="form-label">Username</label>
+        <input type="text" placeholder="Email" name="login"
+               t-att-value="login"
+               id="login"
+               t-attf-class="form-control #{'form-control-sm' if form_small else ''}"
+               required="required"
+               autocomplete="username"
+               autofocus="autofocus"
+               autocapitalize="off"/>
+      </div>
+    </xpath>
+
+  </template>
+
+
+  <!-- ====== Branding Footer ====== -->
+  <template id="web.brand_promotion_message" name="Brand Promotion Message">
+    <style>
+      .company-name {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ff0080;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+    </style>
+    <t t-set="odoo_logo">
+      <a target="_blank"
+         t-attf-href="http://www.odoo.com?utm_source=db&amp;utm_medium=#{_utm_medium}"
+         class="badge text-bg-light">
+        <img alt="Odoo"
+             src="/web/static/img/odoo_logo_tiny.png"
+             width="62" height="20"
+             style="width: auto; height: 1em; vertical-align: baseline;"/>
+      </a>
+    </t>
+    <span>Powered by </span>
+    <span>
+      <img class="o_company_logo_small"
+           src="/mis_website/static/src/img/Alanniainfotechz.png"
+           style="height: 35px; width: 90px;"
+           alt="Logo"/>
+    </span>
+    <t t-set="final_message">Powered by ALANNIA INFOTECH</t>
+  </template>
+
+</odoo>

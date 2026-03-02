@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <template id="custom_login" inherit_id="web.login">
+        <xpath expr="//form[@class='oe_login_form']" position="before">
+            <div class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}} text-center">
+                <img src="/mis_website/static/src/img/logo.png" alt="Company Logo" style="max-height:120px; max-width: 100%; width:auto"/>
+            </div>
+            <t t-if="not is_mobile">
+                <div class="text-shimmer text-center">Welcome To ST.ANNE'S</div>
+            </t>
+            <t t-else="">
+                <div class="text-shimmer text-center">Welcome To ST.ANNE'S App</div>
+            </t>
+
+            <style>
+                @keyframes shimmer {
+                    0% { background-position: -200%; }
+                    100% { background-position: 200%; }
+                }
+
+                .text-shimmer {
+                    font-size: 24px;
+                    font-weight: bold;
+                    background: linear-gradient(90deg, #ff7e5f, #feb47b, #ff7e5f);
+                    background-size: 200%;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: shimmer 3s infinite linear;
+                }
+
+            </style>
+<!--            <div class="card-body">-->
+<!--                        <div t-attf-class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}}">-->
+<!--                            <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" style="max-height:120px; max-width: 100%; width:auto"/>-->
+<!--                        </div>-->
+<!--            </div>-->
+        </xpath>
+        <xpath expr="//form[@class='oe_login_form']/div[2]" position="replace">
+                <div class="mb-3 field-login">
+                    <label for="login" class="form-label">Username</label>
+                    <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="username" autofocus="autofocus" autocapitalize="off"/>
+                </div>
+        </xpath>
+    </template>
+
+
+    <template id="web.brand_promotion_message" name="Brand Promotion Message">
+
+        <style>
+            .company-name {
+                        font-family: 'Arial', sans-serif; /* Clean and professional font */
+                        font-size: 16px; /* Adjust size to your preference */
+                        font-weight: bold; /* Bold for emphasis */
+                        color: #ff0080; /* Neutral dark gray for readability */
+                        text-transform: uppercase; /* Optional: make all letters uppercase */
+                        letter-spacing: 1.5px; /* Slight spacing for a modern look */
+                    }
+        </style>
+        <t t-set="odoo_logo">
+            <a target="_blank"
+                t-attf-href="http://www.odoo.com?utm_source=db&amp;utm_medium=#{_utm_medium}"
+                class="badge text-bg-light">
+                <img alt="Odoo"
+                    src="/web/static/img/odoo_logo_tiny.png"
+                    width="62" height="20"
+                    style="width: auto; height: 1em; vertical-align: baseline;"/>
+            </a>
+        </t>
+        <span>Powered by </span><span ><img  class="o_company_logo_small" src="/mis_website/static/src/img/Alanniainfotechz.png" style="height: 35px; width: 90px;"  alt="Logo"/></span>
+        <t t-set="final_message">Powered by ALANNIA INFOTECH</t>
+<!--        <t t-out="final_message "/>-->
+    </template>
+
+</odoo>

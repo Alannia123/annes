@@ -1,0 +1,51 @@
+<t t-name="mis_education_core.CameraCropTemplate">
+    <div class="o_camera_container p-3">
+
+        <!-- CAMERA AREA -->
+        <div class="camera-wrapper text-center">
+            <video t-ref="video"
+                   autoplay="true"
+                   playsinline="true"
+                   class="w-100 rounded shadow-sm"/>
+            <canvas t-ref="canvas" style="display:none;"></canvas>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="camera-buttons d-flex flex-wrap justify-content-center gap-2 mt-3">
+
+            <!-- Switch Camera -->
+            <button type="button"
+                    class="btn btn-outline-secondary btn-sm"
+                    t-on-click="switchCamera">
+                <i class="fa fa-refresh me-1"/>
+                Switch
+            </button>
+
+            <!-- Capture -->
+            <button type="button"
+                    class="btn btn-primary btn-sm"
+                    t-on-click="captureImage">
+                <i class="fa fa-camera me-1"/>
+                Capture
+            </button>
+
+            <!-- Save -->
+            <button type="button"
+                    class="btn btn-success btn-sm"
+                    t-on-click="saveImage">
+                <i class="fa fa-check me-1"/>
+                Save
+            </button>
+
+            <!-- Cancel -->
+            <button type="button"
+                    class="btn btn-secondary btn-sm"
+                    t-on-click="cancel">
+                <i class="fa fa-times me-1"/>
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+</t>

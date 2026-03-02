@@ -1,0 +1,22 @@
+<odoo>
+
+
+
+!-- Root Menu -->
+   <menuitem id="menu_ai_ama_search_view_root" name="AI AMA" groups="mis_education_core.group_education_principal" web_icon="mis_ai_analysis,static/src/img/ai_search.png" sequence="10" />
+   <menuitem id="menu_ai_ama_search_view_logs_main" name="AI AMA Logs" parent="menu_ai_ama_search_view_root" sequence="10"/>
+    <menuitem id="menu_ai_ama_search_web_root" name="AI AMA Chat"  action="action_ai_ama_search"
+                    parent="menu_ai_ama_search_view_root"   sequence="20"/>
+
+    <menuitem id="menu_ai_ama_search_all_logs" name="Search Logs"
+              parent="menu_ai_ama_search_view_logs_main" sequence="20"
+                                action="action_ai_ama_search_logs"/>
+    <menuitem id="menu_ai_ama_search_queries" name="Queries"
+              parent="menu_ai_ama_search_view_logs_main" sequence="10"
+              action="action_ai_ama_search_queriess"/>
+    <menuitem id="menu_ai_ama_search_error_logs" name="Error Logs"
+              parent="menu_ai_ama_search_view_logs_main" sequence="30"
+              action="action_ai_ama_search_errors"/>
+
+
+</odoo>

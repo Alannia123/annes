@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="voice_to_text.VoiceWidget" owl="1">
+        <div class="o_field_widget o_field_char position-relative">
+            <CharField t-props="props"/>
+            <div class="o_voice_input_container">
+                <select class="o_voice_lang_select form-select form-select-sm"
+                        style="width: auto; height: 32px; padding: 0.25rem 1.5rem 0.25rem 0.5rem; font-size: 0.875rem;"
+                        t-on-change="_onLangChange"
+                        title="Select Language">
+                    <t t-foreach="languages" t-as="lang" t-key="lang.code">
+                        <option t-att-value="lang.code"
+                                t-att-selected="lang.code === state.selectedLang ? 'selected' : null">
+                            <t t-esc="lang.name"/>
+                        </option>
+                    </t>
+                </select>
+
+                <VoiceToTextButton record="record"
+                                   fieldName="props.name"
+                                   selectedLang="state.selectedLang"/>
+
+                <button t-if="record.data[props.name]"
+                        t-on-click="clearText"
+                        class="btn btn-secondary o_clear_button"
+                        title="Clear Text">
+                    <i class="fa fa-times"/>
+                </button>
+            </div>
+        </div>
+    </t>
+</templates>

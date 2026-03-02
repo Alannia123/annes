@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Menu for Education fee-->
+    <menuitem id="education_fee_menu_root" name="Fees Administration"
+              web_icon="mis_education_fee,static/description/overview.png" groups="mis_education_core.group_education_principal,mis_education_core.group_education_office_admin"
+              sequence="1"/>
+
+    <!--    Educational Dashboard Menu-->
+    <menuitem id="education_fee_collect_dashboard_menu_root" parent="education_fee_menu_root"
+              name="Student Fees Overview" sequence="1" action="education_fee_overview_action"/>
+
+    <menuitem id="menu_student_fees_root" name="Fee Details" parent="education_fee_menu_root" sequence="2" groups="">
+        <menuitem id="menu_student_fees" name="Student Payments"  action="action_student_fees" sequence="1"/>
+        <menuitem id="menu_fee_lines" name="Fee Installments" action="action_fee_lines" sequence="2"/>
+    </menuitem>
+
+
+    <menuitem id="menu_application_fee" parent="education_fee_menu_root" groups="mis_education_core.group_education_principal,mis_education_core.group_education_office_admin"
+              name="Application Receipts" action="action_application_fee" sequence="3"/>
+
+    <menuitem
+            id="education_fee_structure_menu_root" action="education_fee_structure_action"
+            parent="education_fee_menu_root" name="Configuration" groups="mis_education_core.group_education_principal"
+            sequence="4"/>
+
+</odoo>
+

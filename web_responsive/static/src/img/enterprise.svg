@@ -1,0 +1,142 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.51001 1080H76.35L1153.55 0H3.51001V1080Z" fill="url(#o_app_switcher_gradient_01)"/>
+<path d="M76.35 1080H842.98L1920 0.18V0H1153.55L76.35 1080Z" fill="url(#o_app_switcher_gradient_02)"/>
+<path d="M1920 0.180176L842.98 1080H1063.11L1920 220.88V0.180176Z" fill="url(#o_app_switcher_gradient_03)"/>
+<path d="M1920 1080V220.88L1063.11 1080H1920Z" fill="url(#o_app_switcher_gradient_04)"/>
+<rect width="1920" height="1080" fill="url(#o_app_switcher_gradient_05)" fill-opacity="0.25"/>
+<rect width="1920" height="1080" fill="#E9E6F9" fill-opacity="0.25"/>
+<defs>
+<linearGradient id="o_app_switcher_gradient_01" x1="-222.43" y1="727.19" x2="904.26" y2="-76.67" gradientUnits="userSpaceOnUse">
+<stop offset="0.1" stop-color="white"/>
+<stop offset="0.36" stop-color="#FEFEFE"/>
+<stop offset="0.68" stop-color="#EAE7F9"/>
+<stop offset="1" stop-color="#E4E9F7"/>
+</linearGradient>
+<linearGradient id="o_app_switcher_gradient_02" x1="407.23" y1="1021.82" x2="1848.47" y2="-153.08" gradientUnits="userSpaceOnUse">
+<stop offset="0.32" stop-color="#FEFEFE"/>
+<stop offset="0.66" stop-color="#EAE7F9"/>
+<stop offset="1" stop-color="#E5E2F6"/>
+</linearGradient>
+<linearGradient id="o_app_switcher_gradient_03" x1="1142.33" y1="846.57" x2="1951.83" y2="136.16" gradientUnits="userSpaceOnUse">
+<stop offset="0.15" stop-color="white"/>
+<stop offset="0.51" stop-color="#F7F0FD"/>
+<stop offset="0.85" stop-color="#F0E7F9"/>
+</linearGradient>
+<linearGradient id="o_app_switcher_gradient_04" x1="1409.74" y1="1071" x2="2070.98" y2="526.01" gradientUnits="userSpaceOnUse">
+<stop offset="0.45" stop-color="white"/>
+<stop offset="0.88" stop-color="#F7F0FD"/>
+<stop offset="1" stop-color="#ECE5F8"/>
+</linearGradient>
+<radialGradient id="o_app_switcher_gradient_05" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 540) rotate(90) scale(540 960)">
+<stop stop-color="#9996A9" stop-opacity="0.53"/>
+<stop offset="1" stop-color="#7A768F"/>
+</radialGradient>
+</defs>
+    <!-- ========================= -->
+<!-- AI + School Overlay -->
+<!-- ========================= -->
+
+<!-- AI Powered Text -->
+<text x="1460" y="980"
+      font-size="28"
+      fill="#5E5A75"
+      opacity="0.08"
+      font-family="Inter, Segoe UI, Arial, sans-serif"
+      letter-spacing="1.5">
+    AI Powered Analysis
+</text>
+
+<!-- Subtitle -->
+<text x="1460" y="1015"
+      font-size="16"
+      fill="#6B6885"
+      opacity="0.06"
+      font-family="Inter, Segoe UI, Arial, sans-serif">
+    Smart Insights • Automation • Intelligence
+</text>
+
+<!-- ========================= -->
+<!-- School Icons (Line style) -->
+<!-- ========================= -->
+
+<!-- Book Icon -->
+<path d="M140 170
+         Q180 150 220 170
+         V260
+         Q180 240 140 260 Z"
+      fill="none"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.07"/>
+
+<path d="M220 170
+         Q260 150 300 170
+         V260
+         Q260 240 220 260 Z"
+      fill="none"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.07"/>
+
+<!-- Graduation Cap -->
+<polygon points="210,120 300,155 210,190 120,155"
+         fill="none"
+         stroke="#6A6783"
+         stroke-width="2"
+         opacity="0.07"/>
+
+<line x1="210" y1="190" x2="210" y2="225"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.07"/>
+
+<!-- ========================= -->
+<!-- School Building Outline -->
+<!-- ========================= -->
+
+<!-- Roof -->
+<path d="M420 210 L520 160 L620 210"
+      fill="none"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.06"/>
+
+<!-- Building body -->
+<rect x="450" y="210"
+      width="140"
+      height="120"
+      fill="none"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.06"/>
+
+<!-- Door -->
+<rect x="505" y="255"
+      width="30"
+      height="75"
+      fill="none"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.06"/>
+
+<!-- Windows -->
+<rect x="470" y="235" width="22" height="22"
+      fill="none" stroke="#6A6783" stroke-width="2" opacity="0.06"/>
+
+<rect x="548" y="235" width="22" height="22"
+      fill="none" stroke="#6A6783" stroke-width="2" opacity="0.06"/>
+
+<!-- Flag pole -->
+<line x1="520" y1="160" x2="520" y2="120"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.06"/>
+
+<!-- Flag -->
+<path d="M520 120 L555 130 L520 140 Z"
+      fill="none"
+      stroke="#6A6783"
+      stroke-width="2"
+      opacity="0.06"/>
+
+</svg>

@@ -1,0 +1,79 @@
+/*
+ * Styles for the Voice-to-Text Button Component
+ */
+.o_voice_input_container {
+    // Position the buttons inside the top-right corner of the text area
+    position: relative;
+    top: -40px;
+    right: 5px;
+    float: right;
+    z-index: 2; // Ensure it appears above the text area
+    display: flex; // Use flexbox to align buttons
+    gap: 4px;      // Add a small gap between buttons
+    align-items: center; // Align items vertically
+}
+
+/* Add style for the new language selector */
+.o_voice_lang_select {
+//     border-radius: 16px !important; /* Match button roundness */
+//     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+     display: none !important;
+}
+
+.o_voice_button, .o_clear_button {
+    border-radius: 50% !important;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    line-height: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.o_voice_button {
+    .fa-microphone {
+        font-size: 16px;
+    }
+
+    // Style for when the microphone is actively listening
+    &.is-listening {
+        background-color: #dc3545; // Red color
+        border-color: #dc3545;
+        color: white;
+        animation: pulse 1.5s infinite;
+    }
+
+    // Style for when an error has occurred
+    &.is-error {
+        background-color: #ffc107; // Yellow color
+        border-color: #ffc107;
+    }
+}
+
+.o_clear_button {
+    .fa-times {
+        font-size: 16px;
+    }
+
+    &:hover {
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+    }
+}
+
+// Pulse animation for the listening state to give user feedback
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}

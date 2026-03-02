@@ -1,0 +1,12 @@
+<odoo>
+   <!-- Client Action -->
+
+
+   <record id="action_ai_ama_search" model="ir.actions.act_url">
+        <field name="name">AI AMA</field>
+        <field name="url">/mis_ai_analysis/home</field>
+       <field name="target">self</field><!-- must match JS -->
+   </record>
+
+
+</odoo>

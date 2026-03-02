@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--        Education timetable form view-->
+    <record id="education_question_bank_view_form" model="ir.ui.view">
+        <field name="name">education.question.bank.view.form</field>
+        <field name="model">education.question.bank</field>
+        <field name="arch" type="xml">
+            <form string="Question Bank">
+                <header>
+                    <button name="set_to_post" class="oe_highlight" type="object" string="Post" invisible="state != 'draft'" ></button>
+                    <button name="reste_to_draft" class="oe_highlight" type="object" string="Reset" invisible="state != 'done'" ></button>
+                    <field name="state" widget="statusbar"  statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1"
+                                   placeholder="Name" readonly="1"/>
+                        </h1>
+                    </div>
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button name="toggle_active" type="object"-->
+<!--                                class="oe_stat_button" icon="fa-archive">-->
+<!--                            <field name="active" widget="boolean_button"-->
+<!--                                   options='{"terminology": "archive"}' groups="mis_education_core.group_education_principal"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+                    <group>
+                        <group>
+                            <field name="class_division_id" options="{'no_open': True, 'no_create': True}" />
+                            <field name="academic_year_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="subject_id" options="{'no_create':True,'no_open':True}" domain="[('id', 'in', subject_ids)]"/>
+                            <field name="subject_ids" invisible="1" />
+                            <field name="pdf_file" filename="file_name" />
+                            <field name="company_id" invisible="1"
+                                   groups="base.group_multi_company"/>
+                            <field name="user_id" options="{'no_create':True,'no_open':True}" string="Updated By"/>
+                        </group>
+                    </group>
+<!--                    <notebook>-->
+<!--                        <page string="Question Bank Preview">-->
+<!--                            <group>-->
+<!--                                <field name="pre_file_name" invisible="1" />-->
+<!--                                <field name="preview_image" invisible="1" filename="pre_file_name" readonly="1" force_save="1" />-->
+<!--                                <field name="preview_image" widget="image" style="height: 600px; width: 600px;" string="" options="{'preview_image': 'preview_image'}" />-->
+<!--                            </group>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!--        Education timetable tree view-->
+    <record id="education_question_bank_view_tree" model="ir.ui.view">
+        <field name="name">education.question.bank.view.tree</field>
+        <field name="model">education.question.bank</field>
+        <field name="arch" type="xml">
+            <tree string="Education Question Bank">
+                <field name="name"/>
+                <field name="academic_year_id"/>
+                <field name="class_division_id"/>
+                <field name="user_id" string="Updated By"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <!--        Education timetable action-->
+    <record id="education_question_bank_action" model="ir.actions.act_window">
+        <field name="name">Education Question Bank</field>
+        <field name="res_model">education.question.bank</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                You haven't created any Question Bank yet.
+            </p>
+        </field>
+    </record>
+    <menuitem
+            id="education_question_bank_main_menu"
+            web_icon="mis_question_bank,static/description/icon.png"
+            name="Question Bank"/>
+    <menuitem
+            id="education_question_ban_sub_menu"
+            name="Question Bank" action="education_question_bank_action"
+            parent="education_question_bank_main_menu"
+            sequence="1"/>
+
+</odoo>

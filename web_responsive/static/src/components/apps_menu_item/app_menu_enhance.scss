@@ -1,0 +1,78 @@
+/* -------------------------------
+   APP MENU ICON ENHANCEMENTS
+-------------------------------- */
+
+.o_app {
+    transition: all 0.25s ease;
+}
+
+/* Icon box */
+.o-app-menu-item__icon {
+    background: #ffffff;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: all 0.25s ease;
+}
+
+/* Hover animation */
+a:hover .o-app-menu-item__icon {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(113, 75, 103, 0.25);
+}
+
+/* App name */
+.o-app-menu-item__name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #2f2f2f;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
+}
+
+/* Name hover effect */
+a:hover .o-app-menu-item__name {
+    color: #714B67; /* Odoo purple */
+}
+
+/* Small underline animation */
+.o-app-menu-item__name strong::after {
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    margin: 4px auto 0;
+    background: linear-gradient(90deg, #714B67, #f39c12);
+    transition: width 0.3s ease;
+}
+
+a:hover .o-app-menu-item__name strong::after {
+    width: 60%;
+}
+
+
+/* Management apps */
+.o_app[data-menu-xmlid^="mis_"] img {
+    box-shadow: 0 6px 20px rgba(113, 75, 103, 0.25);
+}
+
+/* Finance apps */
+.o_app[data-menu-xmlid*="account"] img {
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.25);
+}
+
+/* Exam apps */
+.o_app[data-menu-xmlid*="exam"] img {
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
+}
+
+.menu-dot {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f39c12, #f1c40f);
+    box-shadow: 0 0 0 3px #fff;
+}
+

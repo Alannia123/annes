@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="is_chatgpt_res_config_settings_view" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.is.chatgpt.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="ChatGPT" string="ChatGPT" data-key="is_chatgpt_integration">
+                <h2>OpenAI</h2>
+                <div class="row mt16 o_settings_container">
+
+                    <!-- Toggle Checkbox -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="is_ai_connector"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="is_ai_connector"/>
+                            <div class="text-muted">Enable AI Connector</div>
+                        </div>
+                    </div>
+
+                    <!-- API Key -->
+                    <div class="col-12 col-lg-6 o_setting_box" invisible="not is_ai_connector">
+<!--                        <div class="o_setting_left_pane">-->
+<!--                            <span class="o_form_label">API Key</span>-->
+<!--                        </div>-->
+<!--                        <div class="o_setting_right_pane">-->
+<!--                            <field name="openai_api_key" placeholder="Enter your OpenAI API Key"/>-->
+<!--                        </div>-->
+                        <div class="content-group">
+                            <div class="row mt8">
+                                <label class="col-lg-3" string="MCP Internal Secret" for="mcp_internal_secret"/>
+                                <field name="mcp_internal_secret" title="MCP Internal Secret"/>
+                            </div>
+                        </div>
+                        <div class="content-group">
+                            <div class="row mt8">
+                                <label class="col-lg-3" string="MCP Server Url" for="mcp_server_url"/>
+                                <field name="mcp_server_url" title="MCP Server Url"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+  <record id="view_partner_form_face_embed_pg" model="ir.ui.view">
+    <field name="name">res.partner.face.pgvector</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//sheet//group" position="inside">
+        <group string="Face Recognition">
+          <field name="face_enabled"/>
+          <field name="image_1920" widget="image"/>
+          <field name="embedding_ids" context="{'default_partner_id': active_id}" nolabel="1">
+            <tree editable="bottom">
+              <field name="active"/>
+              <field name="note"/>
+            </tree>
+          </field>
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

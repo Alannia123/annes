@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--        Education timetable form view-->
+    <record id="education_syllabus_view_form" model="ir.ui.view">
+        <field name="name">education.syllabus.view.form</field>
+        <field name="model">education.syllabus</field>
+        <field name="arch" type="xml">
+            <form string="Education Syllabus">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" />
+                            <field name="class_id" options="{'no_open': True, 'no_create': True}" readonly="1"/>
+                            <field name="academic_year_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+<!--                        <group>-->
+<!--                            <field name="user_id" options="{'no_create':True,'no_open':True}" string="Created By"/>-->
+<!--                        </group>-->
+                    </group>
+                    <notebook>
+                        <page string="First Unit" name="first_unit">
+                            <field name="first_unit_syllabus_ids" >
+                                <tree create="0" edit="1" delete="0" editable="bottom" class="o_list_view_fixed">
+                                    <field name="subject_id" readonly="1" options="{'no_create':True,'no_open':True}" width="180"/>
+                                    <field name="syllabus" width="700" class="wrap-text"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Halfly Exam" name="halfly_exam">
+                            <field name="half_syllabus_ids">
+                                <tree create="0" edit="1" delete="0" editable="bottom">
+                                    <field name="subject_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                                    <field name="syllabus" />
+                                </tree>
+                            </field>
+                        </page><page string="Second Unit" name="second_unit">
+                            <field name="second_unit_syllabus_ids">
+                                <tree create="0" edit="1" delete="0" editable="bottom">
+                                    <field name="subject_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                                    <field name="syllabus" />
+                                </tree>
+                            </field>
+                        </page><page string="Annual Unit" name="annual_exm">
+                            <field name="annual_syllabus_ids">
+                                <tree create="0" edit="1" delete="0" editable="bottom">
+                                    <field name="subject_id" readonly="1" options="{'no_create':True,'no_open':True}"/>
+                                    <field name="syllabus" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!--        Education timetable tree view-->
+    <record id="education_syllabus_view_tree" model="ir.ui.view">
+        <field name="name">education.syllabus.view.tree</field>
+        <field name="model">education.syllabus</field>
+        <field name="arch" type="xml">
+            <tree string="Education Syllabus" >
+                <field name="name"/>
+                <field name="academic_year_id"/>
+                <field name="class_id"/>
+                <field name="user_id" string="Created By"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <!--        Education timetable action-->
+    <record id="education_syllabus_action" model="ir.actions.act_window">
+        <field name="name">Education Syllabus</field>
+        <field name="res_model">education.syllabus</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                You haven't created any Question Bank yet.
+            </p>
+        </field>
+    </record>
+    <menuitem
+            id="education_syllabus_main_menu" action="education_syllabus_action"
+            web_icon="mis_syllabus,static/description/syllabus.png"
+            name="MIS Syllabus"/>
+
+
+</odoo>

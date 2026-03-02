@@ -1,0 +1,30 @@
+<!-- data/cron_job.xml -->
+<odoo>
+    <data >
+
+        <record id="ir_cron_update_overdue_student_fees" model="ir.cron">
+                <field name="name">Update Overdue Student Fees</field>
+                <field name="model_id" ref="model_student_fee_line"/>
+                <field name="state">code</field>
+                <field name="code">model._cron_update_overdue_fees()</field>
+                <field name="interval_number">1</field>
+                <field name="interval_type">days</field>
+                <field name="numbercall">-1</field>
+                <field name="doall" eval="False"/> <!-- True to execute missed jobs -->
+                <field name="nextcall" eval="(DateTime.now().replace(hour=2, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
+            </record>
+
+
+        <record id="cron_check_fee_status" model="ir.cron">
+            <field name="name">Cron: Fee status Update</field>
+            <field name="model_id" ref="mis_education_fee.model_student_fees"/> <!-- Replace with your model -->
+            <field name="state">code</field>
+            <field name="code">model.update_fee_status_students()</field>
+            <field name="interval_number">1</field> <!-- Interval Number -->
+            <field name="interval_type">days</field> <!-- Interval Type: minutes, hours, days, weeks, months -->
+            <field name="numbercall">-1</field> <!-- -1 for unlimited -->
+            <field name="doall" eval="False"/> <!-- True to execute missed jobs -->
+            <field name="nextcall" eval="(DateTime.now().replace(hour=2, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
+        </record>
+    </data>
+</odoo>

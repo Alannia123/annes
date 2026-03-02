@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="logout_popup_template" name="Logout Popup Template">
+        <t t-call="website.layout">
+            <div class="row h-75 mt-2">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                        <div class="card-body">
+                            <form id="cusForm"
+                                  action="/web/session/save_logout"
+                                  method="post"
+                                  data-success_page="/web">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <h4 class="description text-center mb-4">
+                                    Logout Confirmation
+                                </h4>
+
+                                <div class="container text-center" id="detailBox">
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <label class="form-check-label" for="saveDetails">
+                                            Save login details
+                                        </label>
+                                        <div class="form-switch form-check">
+                                            <input class="form-check-input"
+                                                   t-att-checked="True if login_details else False"
+                                                   name="rememberMeCheckbox"
+                                                   type="checkbox"
+                                                   role="switch"
+                                                   id="saveDetails"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-center mt-4 gap-3">
+                                    <button type="submit" value="Submit" class="btn btn-primary">
+                                        Save &amp; Logout
+                                    </button>
+                                    <button type="button" id="removeSavedDetailsBtn" class="btn btn-danger">
+                                        Remove Saved Details
+                                    </button>
+                                    <a class="btn btn-secondary" href="/">Go Home!</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', () => {
+                    const btn = document.getElementById('removeSavedDetailsBtn');
+                    btn?.addEventListener('click', async () => {
+                        if (confirm("Are you sure you want to remove your saved login details?")) {
+                            try {
+                                const res = await fetch('/web/session/remove_my_saved_user', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify({})
+                                });
+                                const data = await res.json();
+                                if (data.success) {
+                                    alert("Saved login details removed successfully!");
+                                    window.location.href = "/web/login";
+                                } else {
+                                    alert(data.error || "Failed to remove details.");
+                                }
+                            } catch (err) {
+                                console.error(err);
+                                alert("Error while removing saved details.");
+                            }
+                        }
+                    });
+                });
+            </script>
+        </t>
+    </template>
+</odoo>

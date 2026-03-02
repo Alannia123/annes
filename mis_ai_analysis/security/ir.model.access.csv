@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_search_log,ai.search.log,model_ai_search_log,base.group_user,1,1,1,1
+access_ai_user_queries,ai.user.queries,model_ai_user_queries,base.group_user,1,1,1,1
+access_ai_search_error,ai.search.error,model_ai_search_error,base.group_user,1,1,1,1
+

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_staff_leave_staff,staff leave staff,model_school_staff_leave,mis_staff_leave.group_staff,1,1,1,0
+access_staff_leave_principal,staff leave principal,model_school_staff_leave,mis_staff_leave.group_principal,1,1,1,1

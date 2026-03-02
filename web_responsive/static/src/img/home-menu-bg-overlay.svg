@@ -1,0 +1,66 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Dark base gradient -->
+    <linearGradient id="darkBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1B1026"/>
+      <stop offset="100%" stop-color="#2A1A3D"/>
+    </linearGradient>
+
+    <!-- AI purple wash -->
+    <linearGradient id="aiPurpleWash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#714B67" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#B388EB" stop-opacity="0.20"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#darkBg)"/>
+  <rect width="1600" height="900" fill="url(#aiPurpleWash)"/>
+
+  <!-- Subtle circles (very low contrast) -->
+  <circle cx="220" cy="230" r="26" fill="#FFFFFF" opacity="0.06"/>
+  <circle cx="420" cy="320" r="18" fill="#FFFFFF" opacity="0.05"/>
+  <circle cx="1280" cy="260" r="22" fill="#FFFFFF" opacity="0.06"/>
+  <circle cx="1420" cy="420" r="16" fill="#FFFFFF" opacity="0.05"/>
+
+  <!-- Left pencil (muted) -->
+  <g transform="translate(40,140) rotate(-18)" opacity="0.30">
+    <rect x="0" y="40" width="260" height="40" rx="8" fill="#6FAED9"/>
+    <rect x="190" y="40" width="70" height="40" rx="8" fill="#4A7FA6"/>
+    <polygon points="260,40 310,60 260,80" fill="#D8C2A0"/>
+    <polygon points="310,60 298,56 298,64" fill="#2E2E2E"/>
+  </g>
+
+  <!-- Right pencil (muted) -->
+  <g transform="translate(1320,200) rotate(18)" opacity="0.30">
+    <rect x="0" y="40" width="260" height="40" rx="8" fill="#E89A6B"/>
+    <rect x="190" y="40" width="70" height="40" rx="8" fill="#C77A4A"/>
+    <polygon points="260,40 310,60 260,80" fill="#D8C2A0"/>
+    <polygon points="310,60 298,56 298,64" fill="#2E2E2E"/>
+  </g>
+
+  <!-- Bottom-right book (dark friendly) -->
+  <g transform="translate(1280,540)" opacity="0.28">
+    <rect x="40" y="40" width="220" height="150" rx="10" fill="#5C8FB3"/>
+    <rect x="30" y="30" width="220" height="150" rx="10" fill="#6FAAD4"/>
+    <rect x="60" y="70" width="150" height="10" rx="4" fill="#FFFFFF" opacity="0.5"/>
+    <rect x="60" y="100" width="120" height="10" rx="4" fill="#FFFFFF" opacity="0.5"/>
+  </g>
+
+  <!-- Bottom-left book -->
+  <g transform="translate(80,520)" opacity="0.28">
+    <rect x="0" y="40" width="220" height="150" rx="10" fill="#C47A5A"/>
+    <rect x="20" y="20" width="220" height="150" rx="10" fill="#D88E6F"/>
+  </g>
+
+  <!-- AI Powered Text (dark mode friendly) -->
+  <text x="1540" y="860"
+        text-anchor="end"
+        font-family="Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-size="34"
+        font-weight="700"
+        fill="#E9D9FF"
+        opacity="0.9">
+    🤖 AI Powered Analysis
+  </text>
+</svg>

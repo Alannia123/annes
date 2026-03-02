@@ -1,0 +1,55 @@
+<odoo>
+    <record id="view_ai_ama_search_error_tree" model="ir.ui.view">
+        <field name="name">ai.search.error.tree</field>
+        <field name="model">ai.search.error</field>
+        <field name="arch" type="xml">
+            <tree string="AI Error Logs">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="query_text"/>
+                <field name="error_on"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ai_ama_search_error_form" model="ir.ui.view">
+        <field name="name">ai.search.error.form</field>
+        <field name="model">ai.search.error</field>
+        <field name="arch" type="xml">
+            <form string="Error Log">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"  readonly="1" options="{'placeholder_field': 'name_placeholder'}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="create_date"/>
+                        <field name="create_uid"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="query_text" />
+                            <field name="error_on" />
+                        </group>
+                        <group>
+                            <field name="error" widget="text"/>
+                            <field name="generated_query" widget="text"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_ai_ama_search_errors" model="ir.actions.act_window">
+        <field name="name">AI Errors</field>
+        <field name="res_model">ai.search.error</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+</odoo>

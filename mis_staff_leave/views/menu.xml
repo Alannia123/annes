@@ -1,0 +1,20 @@
+<odoo>
+    <menuitem id="menu_school_root" name="Leave Management"
+              web_icon="mis_staff_leave,static/description/leave.png"/>
+
+    <menuitem id="menu_staff_leave"
+              name="Staff Leave"
+              parent="menu_school_root"
+              action="action_staff_leave"/>
+
+    <menuitem id="menu_staff_leave_my"
+              name="My Leave Requests"
+              parent="menu_staff_leave"
+              action="action_staff_leave_my"/>
+
+    <menuitem id="menu_staff_leave_approval"
+              name="Leave Approvals"
+              parent="menu_staff_leave"
+              groups="mis_staff_leave.group_principal"
+              action="action_staff_leave"/>
+</odoo>

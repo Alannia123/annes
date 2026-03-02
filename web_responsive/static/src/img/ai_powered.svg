@@ -1,0 +1,57 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8f2ff"/>
+      <stop offset="100%" stop-color="#f4fbff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1600" height="900" fill="url(#bgGradient)" />
+
+  <!-- Subtle circles -->
+  <circle cx="220" cy="230" r="26" fill="#fbead1" opacity="0.7" />
+  <circle cx="420" cy="320" r="18" fill="#f5d8d8" opacity="0.6" />
+  <circle cx="1280" cy="260" r="22" fill="#e2f5da" opacity="0.7" />
+  <circle cx="1420" cy="420" r="16" fill="#f6e6ff" opacity="0.6" />
+
+  <!-- Left pencil -->
+  <g transform="translate(40,140) rotate(-18)">
+    <rect x="0" y="40" width="260" height="40" rx="8" fill="#38a3d8" />
+    <rect x="190" y="40" width="70" height="40" rx="8" fill="#1f6f9d" />
+    <polygon points="260,40 310,60 260,80" fill="#f5d3aa" />
+    <polygon points="310,60 298,56 298,64" fill="#3e3e3e" />
+  </g>
+
+  <!-- Right pencil -->
+  <g transform="translate(1320,200) rotate(18)">
+    <rect x="0" y="40" width="260" height="40" rx="8" fill="#ff8a3d" />
+    <rect x="190" y="40" width="70" height="40" rx="8" fill="#e46a1d" />
+    <polygon points="260,40 310,60 260,80" fill="#f5d3aa" />
+    <polygon points="310,60 298,56 298,64" fill="#3e3e3e" />
+  </g>
+
+  <!-- Bottom-right book -->
+  <g transform="translate(1280,540)">
+    <rect x="40" y="40" width="220" height="150" rx="10" fill="#6bb6e6" />
+    <rect x="30" y="30" width="220" height="150" rx="10" fill="#8ed0f5" />
+    <rect x="60" y="70" width="150" height="10" rx="4" fill="#ffffff" opacity="0.75" />
+    <rect x="60" y="100" width="120" height="10" rx="4" fill="#ffffff" opacity="0.75" />
+  </g>
+
+  <!-- Bottom-left book -->
+  <g transform="translate(80,520)">
+    <rect x="0" y="40" width="220" height="150" rx="10" fill="#f18b65" />
+    <rect x="20" y="20" width="220" height="150" rx="10" fill="#f7a98a" />
+  </g>
+
+  <!-- Text: AI Powered Analysis -->
+  <text x="1540" y="860"
+        text-anchor="end"
+        font-family="Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-size="40"
+        font-weight="700"
+        fill="#0b5966">
+    AI Powered Analysis
+  </text>
+</svg>

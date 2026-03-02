@@ -1,0 +1,78 @@
+<odoo>
+
+
+    <!-- Tree -->
+    <record id="view_staff_leave_tree" model="ir.ui.view">
+        <field name="name">staff.leave.tree</field>
+        <field name="model">school.staff.leave</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="staff_id"/>
+                <field name="leave_type"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_staff_leave_form" model="ir.ui.view">
+        <field name="name">staff.leave.form</field>
+        <field name="model">school.staff.leave</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="staff_id" readonly="1"/>
+                        <field name="leave_type"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="reason"/>
+                        <field name="attachment"/>
+                        <field name="state" readonly="1"/>
+                    </group>
+
+                    <footer>
+                        <button string="Submit"
+                                type="object"
+                                name="action_submit"
+                                 invisible="state != 'draft'"
+                                class="btn-primary"/>
+
+                        <button string="Approve"
+                                type="object"
+                                name="action_approve"
+                                invisible="state != 'submitted'"
+                                groups="mis_staff_leave.group_principal"
+                                class="btn-success"/>
+
+                        <button string="Reject"
+                                type="object"
+                                name="action_reject"
+                                 invisible="state != 'submitted'"
+                                groups="mis_staff_leave.group_principal"
+                                class="btn-danger"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action -->
+    <record id="action_staff_leave" model="ir.actions.act_window">
+        <field name="name">Staff Leave</field>
+        <field name="res_model">school.staff.leave</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_staff_leave_my" model="ir.actions.act_window">
+        <field name="name">My Leave Requests</field>
+        <field name="res_model">school.staff.leave</field>
+        <field name="domain">[('staff_id','=',uid)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,45 @@
+<odoo>
+
+
+
+        <record model="ir.module.category" id="module_ai_search_category">
+            <field name="name">AI AMA</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="group_ai_administrator" model="res.groups">
+            <field name="name">AI Administrator</field>
+            <field name="category_id" ref="ai_ama.module_ai_search_category"/>
+<!--            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        </record>
+
+        <record id="group_ai_user" model="res.groups">
+            <field name="name">AI User</field>
+            <field name="category_id" ref="ai_ama.module_ai_search_category"/>
+<!--            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        </record>
+
+        <record id="ai_search_log_rule_admin_access" model="ir.rule">
+            <field name="name">AI Search Log: Admin full access</field>
+            <field name="model_id" ref="ai_ama.model_ai_search_log"/>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+
+        <record id="ai_search_log_rule_user_access" model="ir.rule">
+            <field name="name">AI Search Log: Own &amp; Shared</field>
+            <field name="model_id" ref="ai_ama.model_ai_search_log"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/> <!-- apply to internal users -->
+            <field name="domain_force">[
+                        '|',
+                        ('user_id', '=', user.id),
+                        ('shared_with_ids', 'in', user.id)
+            ]</field>
+        </record>
+
+
+
+
+
+</odoo>

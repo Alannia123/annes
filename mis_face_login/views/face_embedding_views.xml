@@ -1,0 +1,43 @@
+<odoo>
+  <record id="view_face_embedding_tree" model="ir.ui.view">
+    <field name="name">face.embedding.tree</field>
+    <field name="model">face.embedding</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="partner_id"/>
+        <field name="active"/>
+        <field name="note"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_face_embedding_form" model="ir.ui.view">
+    <field name="name">face.embedding.form</field>
+    <field name="model">face.embedding</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="partner_id"/>
+            <field name="active"/>
+            <field name="note"/>
+            <field name="encoding_json" readonly="1" nolabel="1"/>
+          </group>
+          <footer>
+            <button name="action_rebuild_selected" string="Rebuild" type="object" class="btn-primary"/>
+          </footer>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_face_embeddings" model="ir.actions.act_window">
+    <field name="name">Face Embeddings</field>
+    <field name="res_model">face.embedding</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <!-- Put under Contacts menu -->
+  <menuitem id="menu_face_embeddings_root" name="Face Recognition" parent="contacts.menu_contacts"/>
+  <menuitem id="menu_face_embeddings" name="Embeddings" parent="menu_face_embeddings_root" action="action_face_embeddings"/>
+</odoo>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 2000 1128"
+     width="2000" height="1128">
+
+  <!-- ================= BACKGROUND ================= -->
+  <defs>
+    <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8aad9"/>
+      <stop offset="100%" stop-color="#d8d0ee"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="2000" height="1128" fill="url(#purpleGrad)"/>
+
+  <!-- ================= DECORATIVE WAVES ================= -->
+  <g fill="#ffffff" opacity="0.06">
+    <path d="M0 820 C 300 780, 600 860, 900 820 C 1200 780, 1500 860, 2000 820 L 2000 1128 L 0 1128 Z"/>
+  </g>
+
+  <!-- ================= CENTER WATERMARK LOGO ================= -->
+  <g opacity="0.07" transform="translate(500,150)">
+    <image href="logo.png"
+           width="1000"
+           height="1000"
+           preserveAspectRatio="xMidYMid meet"/>
+  </g>
+
+</svg>

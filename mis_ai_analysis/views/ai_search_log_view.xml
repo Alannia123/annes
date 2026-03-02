@@ -1,0 +1,62 @@
+<odoo>
+    <record id="view_ai_ama_search_log_tree" model="ir.ui.view">
+        <field name="name">ai.search.log.tree</field>
+        <field name="model">ai.search.log</field>
+        <field name="arch" type="xml">
+            <tree string="AI Search Logs">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="query_text"/>
+                <field name="shared_with_ids" widget="many2many_tags"/>
+<!--                <field name="generated_query"/>-->
+<!--                <field name="result_from_db"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ai_ama_search_log_form" model="ir.ui.view">
+        <field name="name">ai.search.log.form</field>
+        <field name="model">ai.search.log</field>
+        <field name="arch" type="xml">
+            <form string="Search Log">
+                <sheet>
+                    <div class="oe_title">
+                            <h1>
+                                <field name="name"  readonly="1" options="{'placeholder_field': 'name_placeholder'}"/>
+                            </h1>
+                        </div>
+                    <group>
+                        <field name="create_date"/>
+                        <field name="user_id"/>
+                        <field name="query_text"/>
+                        <field name="rephrased_text"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="result_text" widget="html"/>
+                            <field name="ai_explanation" widget="text"/>
+                        </group>
+                        <group>
+                            <field name="generated_query" widget="text"/>
+                            <field name="result_from_db" widget="text"/>
+                            <field name="shared_with_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_ai_ama_search_logs" model="ir.actions.act_window">
+        <field name="name">AI AMA Logs</field>
+        <field name="res_model">ai.search.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+
+</odoo>

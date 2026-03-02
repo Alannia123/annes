@@ -1,0 +1,32 @@
+<templates>
+    <t t-name="AiAmaSplitView">
+        <div class="o_split_container d-flex">
+            <!-- Left side: Tree -->
+            <div class="o_split_left flex-grow-1 border-end pe-2">
+                <ListView
+                    resModel="ai.search.log"
+                    viewId="false"
+                    arch="this.views.list.arch"
+                    fields="this.views.list.fields"
+                    onRowClicked="onSelectRecord"
+                />
+            </div>
+
+            <!-- Right side: Form -->
+            <div class="o_split_right flex-grow-2 ps-2">
+                <t t-if="state.recordId">
+                    <FormView
+                        resModel="ai.search.log"
+                        resId="state.recordId"
+                        viewId="false"
+                        arch="this.views.form.arch"
+                        fields="this.views.form.fields"
+                    />
+                </t>
+                <t t-else="">
+                    <div class="text-muted p-4">Select a record to see details</div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

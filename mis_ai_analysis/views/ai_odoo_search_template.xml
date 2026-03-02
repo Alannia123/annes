@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Template for ChatGPT-like Search Window -->
+    <template id="ai_ama_chat_window">
+        <style>
+                .o_ai_ama_chat_wrapper {
+                    display: flex;
+                    width: 100%;
+                    height: 100vh;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    background: #fff;
+                    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+                    font-family: "Segoe UI", sans-serif;
+                }
+
+                /* Sidebar (30%) */
+                .chat-sidebar {
+                    flex: 0 0 250px;         /* default width */
+                    max-width: 300px;        /* prevent too wide */
+                    min-width: 200px;        /* prevent collapse */
+                    background: #f4f6f9;
+                    padding: 15px;
+                    border-right: 1px solid #ddd;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .chat-sidebar h4 {
+                    margin-bottom: 10px;
+                    color: #333;
+                }
+                .chat-sidebar ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    flex: 1;
+                    overflow-y: auto;
+                }
+                .chat-sidebar .history-item {
+                    padding: 8px 12px;
+                    margin-bottom: 5px;
+                    border-radius: 6px;
+                    background: #fff;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+                .chat-sidebar .history-item:hover {
+                    background: #e6f0ff;
+                }
+
+                /* Chat Main Area (70%) */
+                .chat-main {
+                    width: 75%;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .chat-header {
+                    padding: 12px;
+                    background: linear-gradient(90deg, #4a90e2, #0077c8);
+                    color: #fff;
+                    font-weight: bold;
+                }
+                .chat-messages {
+                    flex: 1;
+                    padding: 15px;
+                    overflow-y: auto;
+                    background: #fafafa;
+                }
+                .message {
+                    margin: 8px 0;
+                    padding: 10px 14px;
+                    border-radius: 12px;
+                    max-width: 75%;
+                    font-size: 14px;
+                }
+                .message.bot {
+                    background: #e1f0ff;
+                    align-self: flex-start;
+                }
+                .message.user {
+                    background: #d1ffd6;
+                    align-self: flex-end;
+                }
+                .chat_input {
+                    display: flex;
+                    padding: 12px;
+                    border-top: 1px solid #ddd;
+                    background: #fff;
+                }
+                .chat_input input {
+                    flex: 1;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    font-size: 14px;
+                }
+                .chat_input button {
+                    margin-left: 10px;
+                    padding: 10px 16px;
+                    background: #0077c8;
+                    color: #fff;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
+                .chat_input button:hover {
+                    background: #005fa3;
+                }
+            .sidebar-header {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    margin-bottom: 15px;
+                }
+            </style>
+
+            <div class="o_ai_ama_chat_wrapper">
+
+                <!-- Left Sidebar (Search History) -->
+                <div class="chat-sidebar">
+                    <div class="sidebar-header">
+                        <button class="btn-back" onclick="window.location.href='/web';">
+                            ⬅ Back to Odoo
+                        </button>
+                        <h4>Search History</h4>
+                    </div>
+                    <ul id="chatHistory">
+                        <li class="history-item">What is Odoo?</li>
+                        <li class="history-item">Latest AI trends</li>
+                        <li class="history-item">Odoo ERP features</li>
+                    </ul>
+                </div>
+
+                <!-- Right Chat Window -->
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <h3>Welcome, <t t-esc="user_name"/></h3>
+                        <h3>AI AMA Assistant</h3>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot">Hello 👋 Ask me anything!</div>
+                        <div class="container mt-4">
+                            <h3>Dynamic Sales Report</h3>
+                            <table id="salesTable" class="table table-bordered table-striped">
+                              <thead>
+                                <tr>
+                                  <t t-if="result_data">
+                                     <th></th>
+                                    <t t-foreach="result_data[0].keys()" t-as="header">
+                                      <th><t t-esc="header"/></th>
+                                    </t>
+                                  </t>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <t t-foreach="result_data" t-as="row">
+                                  <tr>
+                                    <t t-foreach="row.items()" t-as="cell">
+                                      <td><t t-esc="cell[1]"/></td>
+                                    </t>
+                                  </tr>
+                                </t>
+                              </tbody>
+                            </table>
+                          </div>
+                        <div class="alert alert-info mb-3" role="alert">
+                            <strong>AI Explanation:</strong>
+                            <p t-esc="ai_explanation"/>
+                        </div>
+                    </div>
+                     <!-- jQuery + DataTables -->
+                          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                          <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                          <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+
+                          <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                              $('#salesTable').DataTable({
+                                pageLength: 5,
+                                stateSave: true,   // ✅ remembers pagination/sort
+                              });
+                            });
+                          </script>
+
+                    <div class="chat_input" id="inputquery">
+                        <form action="/ai/search" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input  class="chat_input_input" type="text" id="chatInput" name="chatInput" placeholder="Type your question..." />
+                            <button type="submit" class="chat_send_ai">Send</button>
+                        </form>
+                    </div>
+<!--                    <div class="chat_input" id="inputquery">-->
+<!--                        <form action="/ai/search" method="POST" enctype="multipart/form-data">-->
+<!--                            <input type="text" id="chatInput" placeholder="Type your question..." />-->
+<!--                            <button type="submit" class="chat_send_ai" id="chat_send_ai">Send</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+                </div>
+
+            </div>
+    </template>
+
+</odoo>

@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="ai_ama_chat_window">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/mis_ai_analysis/static/src/css/ai_style.css"/>
+    <link rel="stylesheet" type="text/css" href="/mis_ai_analysis/static/src/css/ai_language.css"/>
+
+
+<div class="o_ai_ama_chat_wrapper">
+  <!-- Sidebar -->
+  <div class="chat-sidebar">
+
+  <div class="sidebar-header">
+    <button class="btn primary" onclick="window.location.href='/web';">⬅ Back to Odoo</button>
+    <h4>Search History</h4>
+  </div>
+
+  <ul id="chatHistory">
+    <t t-foreach="search_history" t-as="history">
+      <li onclick="setChatInput(this)">
+        <b><t t-esc="history.query_text"/></b>
+      </li>
+    </t>
+  </ul>
+
+</div>
+
+
+  <!-- Main -->
+  <div class="chat-main">
+    <div class="chat-header enhanced-chat-header">
+
+    <!-- LEFT -->
+    <div class="left-block">
+        <button class="o_sidebar_toggle" title="Toggle Sidebar">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+
+        <span class="welcome-badge">
+            Hello <span class="wave-hand">👋</span> Ask me anything!
+        </span>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center-block">
+        <span class="ai-badge">
+            <span class="ai-icon-bigger animated-ai">🤖</span>
+            <span class="ai-title-text animated-text">YOUR AI ASSISTANT!</span>
+        </span>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-block">
+        <img src="/mis_ai_analysis/static/src/img/ai_search.png"
+             class="ai-logo-big"
+             alt="AI Logo"></img>
+    </div>
+
+</div>
+
+
+
+
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+function loadDataTable() {
+    let table = $("#ai_result_table");
+
+    if (table.length &amp;&amp; !$.fn.DataTable.isDataTable(table)) {
+
+        table.DataTable({
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 100, 200],
+            searching: true,
+            ordering: true,
+            autoWidth: false,
+
+            scrollX: true,
+            scrollY: "480px",
+            scrollCollapse: true,
+
+            processing: true,
+            deferRender: true,
+
+            // SAFE DOM layout
+            dom: "&lt;'dt-top' lf&gt;t&lt;'dt-bottom' ip&gt;",
+
+
+            drawCallback: function () {
+                let api = this.api();
+                api.column(0, { page: "current" }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            },
+        });
+
+        console.log("✔ DataTable Initialized Successfully!");
+    }
+}
+
+
+// Observe DOM until table appears
+const observer = new MutationObserver(() => {
+    if (document.querySelector("#ai_result_table")) {
+        loadDataTable();
+        observer.disconnect();
+    }
+});
+observer.observe(document.body, { childList: true, subtree: true });
+</script>
+
+
+
+
+
+
+
+      <style>
+
+<!--          .dataTables_scrollHeadInner,-->
+<!--.dataTables_scrollHeadInner table {-->
+<!--    width: 100% !important;-->
+<!--}-->
+
+
+          .dt-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.dt-bottom .dataTables_paginate {
+    order: 1;     /* Left side */
+}
+
+.dt-bottom .dataTables_info {
+    order: 2;     /* Right side */
+}
+
+
+          .dataTables_paginate .paginate_button {
+    padding: 3px 8px;
+    border-radius: 6px !important;
+    background: #f0f0f0;
+    margin: 0 2px;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background: #714B67 !important;
+    color: #fff !important;
+}
+
+.dataTables_info {
+    font-size: 13px;
+    color: #555;
+}
+
+
+      </style>
+
+                <!-- AI USER QUERY BOX -->
+<div class="ai-query-mini" t-if="result_data">
+    <span class="title">AI User Query:</span>
+    <span class="text"><b><t t-esc="user_query"/></b></span>
+</div>
+
+<!-- AI HOME WELCOME BOX -->
+<div class="ai-welcome-mini" t-if="not result_data">
+    <span class="welcome-title">Welcome to Your AI Assistant</span>
+    <span class="welcome-sub">Ask anything — I’m here to help!</span>
+</div>
+
+
+      <t t-if="result_data">
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="openTab(event, 'preview')">🔹 Result</div>
+      <div class="tab" onclick="openTab(event, 'graph')">📊 Graph</div>
+      <div class="tab" onclick="openTab(event, 'explanation')">📖 AI Explanation</div>
+      <!-- RIGHT SIDE DOWNLOAD BUTTON -->
+        <a t-if="download_xlsx_url"
+           t-att-href="download_xlsx_url"
+           class="download-xlsx-btn">
+            ⬇ Download XLSX
+        </a>
+    </div>
+
+    <div id="preview" class="tab-content active">
+          <div class="ai-result-box">
+
+    <!-- Heading -->
+    <div class="ai-result-title">📄 AI Result Preview</div>
+
+    <t t-if="result_data">
+        <table id="ai_result_table" class="display nowrap" style="width:100%;">
+
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <t t-foreach="result_data[0].keys()" t-as="header">
+                        <th t-attf-style="text-transform: capitalize; #{'text-align: right;' if isinstance(result_data[0][header], (int,float)) else 'text-align: left;'}">
+                            <t t-esc="header.replace('_', ' ')"/>
+                        </th>
+                    </t>
+                </tr>
+            </thead>
+
+            <tbody>
+                <t t-set="count" t-value="0"/>
+                <t t-foreach="result_data" t-as="row">
+                    <t t-set="count" t-value="count + 1"/>
+                    <tr>
+                        <td class="row-index"></td>
+                        <t t-foreach="result_data[0].keys()" t-as="col">
+                            <t t-set="value" t-value="row.get(col)"/>
+
+                            <t t-if="isinstance(value, (int,float))">
+                                <td style="text-align: right;">
+                                    <t t-esc="'{:,.2f}'.format(value)"/>
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td><t t-esc="value or ''"/></td>
+                            </t>
+                        </t>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </t>
+
+    <t t-else="">
+        <div class="ai-result-empty">No results found.</div>
+    </t>
+
+</div>
+
+</div>
+
+
+    <div id="graph" t-attf-class="tab-content #{'active' if active_tab=='graph' else ''}">
+        <div class="ai-graph-box mb-3" role="alert">
+            <t t-if="chart_data">
+                <div id="bar_chart" style="width:100%; height:420px;"></div>
+            </t>
+            <t t-if="not chart_data">
+                <p>No chart data available for this result.</p>
+            </t>
+        </div>
+    </div>
+
+
+
+
+
+
+<!--                    &lt;!&ndash; Expose chart_data to JS as a global variable safely &ndash;&gt;-->
+                    <t t-jquery="body" t-operation="append">
+                        <script type="text/javascript">
+                            window.AI_CHART_DATA = <t t-raw="json.dumps(chart_data or {})"/>;
+                        </script>
+                    </t>
+
+                    <!-- Plotly CDN (fast) -->
+                    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+                <!-- Include module static JS (registered in manifest assets) -->
+                    <script type="text/javascript" src="/mis_ai_analysis/static/src/js/ai_chart.js"></script>
+
+    <div id="explanation" class="tab-content">
+
+    <!-- If explanation exists -->
+    <t t-if="ai_explanation_html">
+        <div class="ai-explanation-heading">🧠 AI Explanation</div>
+        <div id="aiExplanationContent" class="ai-explanation-box" t-raw="ai_explanation_html"/>
+    </t>
+    <t t-if="not ai_explanation_html">
+        <div class="ai-explanation-box ai-no-explain">
+            <strong>⚠ Explanation Not Available</strong>
+            <div>
+                The data is too large or complex for AI to generate an explanation.
+                Please refine your query for a more focused result.
+            </div>
+        </div>
+    </t>
+
+</div>
+
+      </t>
+
+
+
+
+       <!-- jQuery + DataTables -->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+
+
+    <!-- Input -->
+    <div class="chat_input">
+      <form id="aiForm" action="/ai/search" method="POST" style="display:flex;align-items:center;gap:10px;width:100%;justify-content:center;">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <div class="search-bar-wrapper">
+          <input type="text" id="chatInput" name="chatInput" placeholder="Type your question..."/>
+          <button type="button" id="clearBtn" title="Clear">❌</button>
+        </div>
+
+
+
+
+        <button type="button" style="cursor: pointer;" id="voiceBtn" title="Click To Start"><i class="fa fa-microphone"></i></button>
+        <button type="submit" style="cursor: pointer;" class="btn btn-primary">🔍 Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- AI Loading + Error Overlay -->
+<div id="loadingOverlay"
+     t-attf-style="#{ 'display:flex;' if error_message else 'display:none;' }"
+     style="
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.45);
+        backdrop-filter: blur(3px);
+        z-index: 99999;
+        animation: fadeIn 0.4s ease-out;
+     ">
+
+    <div class="ai-loader-card"
+         style="
+            background: rgba(255,255,255,0.92);
+            border-radius: 14px;
+            padding: 28px 35px;
+            width: 380px;
+            text-align:center;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+            animation: popIn 0.35s ease-out;
+         ">
+
+        <!-- ================= ERROR MODE ================ -->
+        <t t-if="error_message">
+
+            <img src="/mis_ai_analysis/static/src/img/sorry_inc.png"
+                 alt="Error"
+                 style="height:90px; margin-bottom:20px;"/>
+
+            <h3 style="color:#b30000; font-weight:800; margin-bottom:10px;">
+                Something went wrong!
+            </h3>
+
+            <div style="color:#4a4a4a; font-size:15px; margin-bottom:20px;">
+                <div style="white-space: pre-line; text-align:center;">
+                    <t t-esc="error_message"/>
+                </div>
+            </div>
+
+            <a href="/mis_ai_analysis/home"
+               class="btn btn-primary"
+               style="
+                    background:#714B67;
+                    border:none;
+                    padding:10px 20px;
+                    border-radius:8px;
+                    font-weight:600;
+                    color:#fff;
+                    box-shadow:0 3px 8px rgba(0,0,0,0.2);
+               ">
+                🔍 Back to Search
+            </a>
+
+        </t>
+
+        <!-- =============== THINKING MODE ================ -->
+        <t t-if="not error_message">
+
+            <!-- AI Animated Spinner -->
+            <div class="ai-spinner-wrapper" style="margin-bottom:20px;">
+                <div class="ai-pulse-ring"></div>
+                <div class="ai-spinner"></div>
+            </div>
+            <!-- AI ROBOT + HOLOGRAM -->
+<div class="ai-holo-wrapper">
+
+<!--    &lt;!&ndash; Floating Robot &ndash;&gt;-->
+<!--    <div class="ai-robot-container">-->
+<!--        <div class="ai-robot">-->
+<!--            <div class="robot-head">-->
+<!--                <div class="robot-eyes">-->
+<!--                    <span class="eye left-eye"></span>-->
+<!--                    <span class="eye right-eye"></span>-->
+<!--                </div>-->
+<!--                <div class="robot-mouth"></div>-->
+<!--            </div>-->
+
+<!--            <div class="robot-body">-->
+<!--                <div class="robot-core"></div>-->
+<!--            </div>-->
+
+<!--            <div class="robot-shadow"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- FUTURISTIC HOLOGRAM TYPING PANEL -->
+    <div class="holo-screen">
+        <div class="holo-line"></div>
+        <div class="holo-text">Analyzing query <span class="typing-dots"></span></div>
+    </div>
+
+</div>
+
+
+
+            <h3 style="color:#333; font-weight:700; font-size:20px;">
+                Thinking with AI...
+            </h3>
+
+            <p style="color:#666; margin-top:6px; font-size:14px;">
+                Please wait while I analyze your query.
+            </p>
+
+        </t>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript" src="/mis_ai_analysis/static/src/js/ai_chat.js"></script>
+
+    <t t-jquery="head" t-operation="append">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+</t>
+
+<t t-jquery="body" t-operation="append">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+</t>
+
+</template>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_education_syllabus,access.syllabus,mis_syllabus.model_education_syllabus,mis_education_core.group_education_faculty,1,1,1,0
+access_education_syllabus_principal,access.syllabus.principal,mis_syllabus.model_education_syllabus,mis_education_core.group_education_principal,1,1,1,1
+access_education_syllabus_first,access.first.unit.syllabus,mis_syllabus.model_first_unit_syllabus,base.group_user,1,1,1,1
+access_education_syllabus_half,access.half.syllabus,mis_syllabus.model_half_syllabus,base.group_user,1,1,1,1
+access_education_syllabus_second,access.second.unit.syllabus,mis_syllabus.model_second_unit_syllabus,base.group_user,1,1,1,1
+access_education_syllabus_annual,access.annual.syllabus,mis_syllabus.model_annual_syllabus,base.group_user,1,1,1,1

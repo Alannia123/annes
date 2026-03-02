@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+
+    <template id="science_certificate_template_document">
+    <t t-call="web.basic_layout">
+
+      <t t-set="d" t-value="doc"/>
+
+      <style>
+
+        /* ===============================
+           FIXED A4 LANDSCAPE PAGE
+        =============================== */
+        .cert-page {
+            width: 297mm;
+            height: 210mm;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            overflow: hidden;
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* ===============================
+           OUTER GREEN BORDER
+        =============================== */
+        .border-outer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 297mm;
+            height: 210mm;
+            background: #0f6857;
+            border-radius: 5mm;
+            z-index: 1;
+        }
+
+        /* ===============================
+           INNER WHITE PANEL (8mm gap)
+        =============================== */
+        .panel-inner {
+            position: absolute;
+            top: 8mm;
+            left: 8mm;
+            width: 281mm;
+            height: 194mm;
+            background: #ffffff;
+            border-radius: 4mm;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        /* ===============================
+           WAVE BACKGROUND
+        =============================== */
+        .waves {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                115deg,
+                transparent 0mm,
+                transparent 7mm,
+                rgba(0, 0, 0, 0.06) 8mm
+            );
+            opacity: 0.28;
+            z-index: 3;
+        }
+
+        /* ===============================
+           GOLD SWOOSH TOP
+        =============================== */
+        .swoosh-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120mm;
+            height: 28mm;
+            background: linear-gradient(90deg, #d4b05a, #f4e2aa);
+            clip-path: polygon(0 0, 100% 0, 70% 100%, 0 55%);
+            opacity: 0.93;
+            z-index: 4;
+        }
+
+        /* ===============================
+           GOLD SWOOSH BOTTOM
+        =============================== */
+        .swoosh-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 140mm;
+            height: 32mm;
+            background: linear-gradient(90deg, #d4b05a, #fae6b0);
+            clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+            opacity: 0.93;
+            z-index: 4;
+        }
+
+        /* ===============================
+           GOLD CORNER ART
+        =============================== */
+        .corner-lines {
+            position: absolute;
+            top: 6mm;
+            right: 6mm;
+            width: 38mm;
+            height: 38mm;
+            z-index: 5;
+        }
+        .corner-lines div {
+            border-top: 0.8mm solid #c8a553;
+            border-right: 0.8mm solid #c8a553;
+            position: absolute;
+        }
+        .corner-lines .l1 { top: 0; right: 0; width: 38mm; height: 38mm; }
+        .corner-lines .l2 { top: 4mm; right: 4mm; width: 30mm; height: 30mm; }
+        .corner-lines .l3 { top: 8mm; right: 8mm; width: 22mm; height: 22mm; }
+
+        /* ===============================
+           HEADER TEXT
+        =============================== */
+        .school-title {
+            position: absolute;
+            top: 20mm;
+            width: 100%;
+            text-align: center;
+            font-size: 13mm;
+            font-weight: 900;
+            color: #424242;
+            z-index: 6;
+        }
+
+        .school-sub {
+            position: absolute;
+            top: 36mm;
+            width: 100%;
+            text-align: center;
+            font-size: 4.6mm;
+            color: #444;
+            z-index: 6;
+        }
+
+        .expo-title {
+            position: absolute;
+            top: 52mm;
+            width: 100%;
+            text-align: center;
+            font-size: 13mm;
+            font-weight: 900;
+            z-index: 6;
+        }
+
+        .expo-sub {
+            position: absolute;
+            top: 68mm;
+            width: 100%;
+            text-align: center;
+            font-size: 9mm;
+            font-weight: 700;
+            color: #187d70;
+            letter-spacing: 1mm;
+            z-index: 6;
+        }
+
+        .certify {
+            position: absolute;
+            top: 88mm;
+            width: 100%;
+            text-align: center;
+            font-size: 5mm;
+            z-index: 6;
+        }
+
+        .student-name {
+            position: absolute;
+            top: 98mm;
+            width: 100%;
+            text-align: center;
+            font-size: 8mm;
+            font-weight: 700;
+            text-decoration: underline;
+            z-index: 6;
+        }
+
+        .body-text {
+            position: absolute;
+            top: 115mm;
+            width: 100%;
+            padding: 0 20mm;
+            text-align: center;
+            font-size: 4.8mm;
+            line-height: 7mm;
+            z-index: 6;
+        }
+
+        /* ===============================
+           IMAGES: MEDAL + MICRO + LAB
+        =============================== */
+        .medal {
+            position: absolute;
+            top: 18mm;
+            right: 18mm;
+            width: 32mm;
+            z-index: 7;
+        }
+
+        .microscope {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70mm;
+            z-index: 7;
+        }
+
+        .lab-items {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 88mm;
+            z-index: 7;
+        }
+
+        .center-icon {
+            position: absolute;
+            top: 138mm;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 38mm;
+            z-index: 7;
+        }
+
+        /* ===============================
+           SIGNATURES
+        =============================== */
+        .sig-left {
+            position: absolute;
+            bottom: 28mm;
+            left: 35mm;
+            text-align: center;
+            z-index: 7;
+        }
+        .sig-right {
+            position: absolute;
+            bottom: 28mm;
+            right: 35mm;
+            text-align: center;
+            z-index: 7;
+        }
+
+        .sig-img { width: 34mm; }
+        .sig-name { font-size: 6mm; font-weight: 700; }
+        .sig-role { font-size: 4mm; }
+      </style>
+
+
+      <!--============================
+           CERTIFICATE RENDER
+      ==============================-->
+      <div class="cert-page">
+
+        <div class="border-outer"></div>
+
+        <div class="panel-inner">
+
+            <div class="waves"></div>
+            <div class="swoosh-top"></div>
+            <div class="swoosh-bottom"></div>
+
+            <div class="corner-lines">
+                <div class="l1"></div>
+                <div class="l2"></div>
+                <div class="l3"></div>
+            </div>
+
+            <!-- Icons -->
+            <img src="/mis_website_backend/static/src/img/gold_medal.png" class="medal"/>
+            <img src="/mis_website_backend/static/src/img/microscope_left.png" class="microscope"/>
+            <img src="/mis_website_backend/static/src/img/lab_items_right.png" class="lab-items"/>
+            <img src="/mis_website_backend/static/src/img/center_icon.png" class="center-icon"/>
+
+            <!-- Text Layers -->
+            <div class="school-title">ST.ANNE'S SCHOOL</div>
+            <div class="school-sub">Chotojagulia, P.S - Duttapukur - 743294. | Affiliated to I.C.S.E</div>
+
+            <div class="expo-title">SCIENCE EXPO 2025</div>
+            <div class="expo-sub">CERTIFICATE OF EXCELLENCE</div>
+
+            <div class="certify">This is to certify that</div>
+
+            <div class="student-name"><t t-esc="d.name"/></div>
+
+            <div class="body-text">
+                of class <t t-esc="d.name"/> section <t t-esc="d.name"/> has been awarded<br/>
+                <t t-esc="d.name"/> at the Science Expo 2025,<br/>
+                in recognition of exceptional innovation, practical application of scientific concepts,<br/>
+                and outstanding creativity in project development.
+            </div>
+
+            <!-- Signatures -->
+            <div class="sig-left">
+                <img src="/mis_website_backend/static/src/img/sig_principal.png" class="sig-img"/>
+                <div class="sig-name">REV. FR. AROCKIA DOSS</div>
+                <div class="sig-role">Principal</div>
+            </div>
+
+            <div class="sig-right">
+                <img src="/mis_website_backend/static/src/img/sig_correspondent.png" class="sig-img"/>
+                <div class="sig-name">REV. FR. JAMES MICHEAL PRABU</div>
+                <div class="sig-role">Correspondent</div>
+            </div>
+
+        </div>
+
+      </div>
+
+    </t>
+  </template>
+
+
+    <template id="science_certificate_template">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="mis_website_backend.science_certificate_template_document">
+<!--                <t t-set="doc" t-value="doc"/>-->
+            </t>
+        </t>
+    </t>
+</template>
+
+
+</odoo>

@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="ai_ama_chat_window">
+      <style>
+
+          .tabs {
+                  display: flex;
+                  margin-bottom: 10px;
+                  border-bottom: 2px solid #ccc;
+                }
+                .tab {
+                  padding: 10px 20px;
+                  cursor: pointer;
+                  font-weight: bold;
+                  border: 1px solid #ccc;
+                  border-bottom: none;
+                  background: #f0f0f0;
+                  border-radius: 8px 8px 0 0;
+                  margin-right: 5px;
+                }
+                .tab.active {
+                  background: #fff;
+                  border-bottom: 2px solid #fff;
+                }
+                .tab-content {
+                  flex: 1;
+                  padding: 15px;
+                  border: 1px solid #ccc;
+                  border-radius: 0 8px 8px 8px;
+                  background: #fff;
+                  overflow-y: auto;
+                }
+
+                .tab-content.active {
+                  display: block;
+                }
+                          .tab-content {
+                  display: none; /* or block if you want it visible by default */
+                }
+
+                          .empty-space {
+                  flex: 1; /* pushes the search bar down */
+                }
+
+                  .o_ai_ama_chat_wrapper {
+                        display: flex;
+                        height: 90vh;     /* take full screen */
+                        background: #fff;
+                        box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+                        font-family: "Segoe UI", sans-serif;
+                    }
+
+                /* Sidebar (30%) */
+                .chat-sidebar {
+                        flex: 0 0 250px;
+                        max-width: 300px;
+                        min-width: 200px;
+                        background: #f4f6f9;
+                        padding: 15px;
+                        border-right: 1px solid #ddd;
+                        display: flex;
+                        flex-direction: column;
+                        overflow: hidden;   /* sidebar content won't scroll */
+                    }
+                .chat-sidebar h4 {
+                    margin-bottom: 10px;
+                    color: #333;
+                }
+                .chat-sidebar ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    flex: 1;
+                    overflow-y: auto;
+                }
+                .chat-sidebar .history-item {
+                    padding: 8px 12px;
+                    margin-bottom: 5px;
+                    border-radius: 6px;
+                    background: #fff;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+                .chat-sidebar .history-item:hover {
+                    background: #e6f0ff;
+                }
+
+                /* Chat Main Area (70%) */
+                .chat-main {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .chat-header {
+                        position: fixed;   /* Sticks it */
+                        top: 0;            /* Always at the top */
+                        left: 0;
+                        width: 100%;
+                        background: #714B67;  /* white background so content under doesn’t overlap */
+                        z-index: 1000;     /* keeps it above other elements */
+                        border-bottom: 1px solid #ccc; /* optional separator */
+                        padding: 8px;
+                    }
+                    body {
+                        margin: 0;  /* remove default margin */
+                        padding-top: 60px; /* prevent content from hiding behind header (adjust based on height) */
+                    }
+                .chat-messages {
+                    flex: 1;
+                    padding: 5px;
+                    overflow-y: auto;
+                    background: #fafafa;
+                }
+                .message {
+                    margin: 8px 0;
+                    padding: 10px 14px;
+                    border-radius: 12px;
+<!--                    max-width: 16%;-->
+                    font-size: 14px;
+                }
+          .message_ai {
+                    margin: 8px 0;
+                    padding: 10px 14px;
+                    border-radius: 12px;
+<!--                    max-width: 16%;-->
+                    font-size: 14px;
+                }
+                .message.bot {
+                    background: #e1f0ff;
+                    align-self: flex-start;
+                }
+<!--                .message.user {-->
+<!--                    background: #d1ffd6;-->
+<!--                    align-self: flex-end;-->
+<!--                }-->
+                .chat_input {
+                    display: flex;
+                    padding: 12px;
+                    border-top: 1px solid #ddd;
+                    background: #fff;
+                }
+                .chat_input form {
+                    display: flex;
+                    width: 70%;
+                }
+
+                .chat_input_input {
+                    flex: 1;               /* take remaining space */
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 8px 0 0 8px;
+                    outline: none;
+                }
+
+                .chat_send_ai {
+                    padding: 10px 20px;
+                    border: none;
+                    background: #007bff;
+                    color: #fff;
+                    cursor: pointer;
+                    border-radius: 0 8px 8px 0;
+                }
+                .chat_input button {
+                    margin-left: 10px;
+                    padding: 10px 16px;
+                    background: #714B67;
+                    color: #fff;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
+                .chat_input button:hover {
+                    background: #714B67;
+                }
+            .sidebar-header {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    margin-bottom: 15px;
+                }
+          /* Make table scrollable horizontally */
+                .table-container {
+                    overflow-x: auto;
+                    width: 100%;
+                }
+
+                /* Ensure table has borders */
+                #aiTable {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                #aiTable th, #aiTable td {
+                    border: 1px solid #ccc;
+                    padding: 6px 10px;
+                    white-space: nowrap;
+                }
+
+                /* Style only table headers inside your aiTable */
+                #aiTable thead th {
+                    border-top: 3px solid #007bff !important;     /* blue */
+                    border-bottom: 3px solid #4d0000 !important;  /* dark red */
+                    border-left: 2px solid #999 !important;       /* grey */
+                    border-right: 2px solid #999 !important;      /* grey */
+                    background: #f4f6f9 !important;
+                    color: #333 !important;
+                    font-weight: bold !important;
+                    text-align: center !important;
+                }
+
+          .wave {
+                display: inline-block;
+                transform-origin: 70% 70%;
+                animation: wave-animation 2s infinite;
+            }
+
+            @keyframes wave-animation {
+                0% { transform: rotate(0deg); }
+                10% { transform: rotate(14deg); }
+                20% { transform: rotate(-8deg); }
+                30% { transform: rotate(14deg); }
+                40% { transform: rotate(-4deg); }
+                50% { transform: rotate(10deg); }
+                60% { transform: rotate(0deg); }
+                100% { transform: rotate(0deg); }
+            }
+          .greeting {
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: #fff;
+            }
+
+          .ai-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #e6f7ff; /* light blue background */
+    padding: 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* 🤖 Robot icon bounce */
+.ai-icon {
+    font-size: 1.6rem;
+    display: inline-block;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* Shimmer text */
+.shimmer-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    background: linear-gradient(
+        -90deg,
+<!--        #007399,-->
+        #002266,
+<!--        #66ffcc,-->
+        #ff6699
+    );
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 8s infinite linear;
+}
+
+@keyframes shimmer {
+    0% { background-position: 300% center; }
+    100% { background-position: -300% center; }
+}
+
+
+            .logo-cell {
+                text-align: center;
+            }
+
+            .ai-logo {
+                max-height: 50px;
+                filter: drop-shadow(0 3px 4px rgba(0,0,0,0.3));
+                transition: transform 0.3s ease;
+            }
+
+            .ai-logo:hover {
+                transform: scale(1.3);
+            }
+
+              #loadingScreen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.9);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 18px;
+    color: #333;
+}
+.loader-img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 12px;
+}
+
+      </style>
+        <div class="o_ai_ama_chat_wrapper">
+        <!-- Left Sidebar (Search History) -->
+            <div class="chat-sidebar">
+                <div class="sidebar-header">
+                    <button class="btn primary" onclick="window.location.href='/web';">
+                        ⬅ Back to Odoo
+                    </button>
+                    <h4 style="color: #4d0000;">Search History</h4>
+                </div>
+                <ul id="chatHistory">
+                    <t t-foreach="search_history" t-as="history">
+                        <li class="history-item" onclick="setChatInput(this)"><t t-esc="history.query_text"/> </li>
+                    </t>
+                </ul>
+            </div>
+        <!-- Right Chat Window -->
+            <div class="chat-main">
+                <table width="100%" class="chat-header">
+                    <tr>
+                        <td width="25%">
+                            <span class="message bot greeting" style="color:black;">
+                                Hello <span class="wave">👋</span> Ask me anything!
+                            </span>
+                        </td>
+                        <td  width="15%"></td>
+                        <td width="48%">
+                          <span class="ai-title">
+                            <span class="ai-icon">🤖</span>
+                            <span class="shimmer-text">YOUR AI ASSISTANT!</span>
+                          </span>
+                        </td>
+                        <td width="12%" >
+                            <img src="/ai_ama/static/src/img/ai_search.png" alt="AI Logo" class="ai-logo"/>
+                        </td>
+                    </tr>
+                </table>
+                <br></br>
+                <div class="alert alert-info mb-3" role="alert" t-if="result_data">
+                    <strong style="color: #4d0000;">AI User Query:  </strong><t t-esc="user_query"/>
+                </div>
+                <div class="alert alert-info mb-3" role="alert" t-if="not result_data">
+                    <strong style="color: #4d0000;">👋 Welcome to Your AI Assistant!</strong>
+                    <span> Ask me anything about your sales, products, or data — I’m here to help!</span>
+                </div>
+                <br></br>
+                <!-- Tabs -->
+                <t t-if="result_data">
+                    <div class="tabs">
+                      <div class="tab active" onclick="openTab(event, 'preview')">🔹 Result</div>
+                      <div class="tab" onclick="openTab(event, 'graph')">📊 Graph</div>
+                      <div class="tab" onclick="openTab(event, 'explanation')">📖 AI Explanation</div>
+                    </div>
+                    <div id="preview" class="tab-content active">
+                    <div class="container mt-4 table-container">
+                        <t t-if="result_data">
+                        <table id="aiTable" class="display">
+                            <thead>
+                                <tr>
+
+                                        <th style="text-align: center;">Sr.No</th>
+                                        <t t-foreach="result_data[0].keys()" t-as="header">
+                                            <th t-attf-style="text-transform: capitalize; #{'text-align: right;' if isinstance(result_data[0][header], (int,float)) else 'text-align: left;'}">
+                                                <t t-esc="header.replace('_', ' ')"/>
+                                            </th>
+                                        </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="count" t-value="0"/>
+                                <t t-foreach="result_data" t-as="row">
+                                    <t t-set="count" t-value="count + 1"/>
+                                    <tr>
+                                        <td style="text-align: center;"><t t-esc="count"/></td>
+                                        <t t-foreach="result_data[0].keys()" t-as="col">
+                                            <t t-set="value" t-value="row.get(col)"/>
+
+                                            <t t-if="isinstance(value, (int,float))">
+                                                <td style="text-align: right;">
+                                                    <t t-esc="'{:,.2f}'.format(value)"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td><t t-esc="value or ''"/></td>
+                                            </t>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        </t>
+                        <t t-else="">
+                            <div class="alert alert-info mb-3" role="alert">
+                                <p><b>No results found for your Query. Please try with another query</b></p>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                    <div id="graph" class="tab-content">
+                    <div class="alert alert-info mb-3" role="alert">
+                        <t t-if="chart_uri">
+                            <img t-att-src="chart_uri" style="max-width:100%; border:1px solid #ccc; padding:5px;"/>
+                        </t>
+                    </div>
+                </div>
+                    <div id="explanation" class="tab-content">
+                    <div class="alert alert-info mb-3" role="alert" t-if="result_data">
+                        <strong style="color: #4d0000;">AI Explanation:</strong>
+                        <p t-raw="ai_explanation_html"/>
+                    </div>
+                </div>
+                </t>
+                <t t-else="">
+                    <div class="chat-messages">
+                        <div class="container mt-4 table-container"></div>
+                    </div>
+                </t>
+
+                 <!-- jQuery + DataTables -->
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+                      <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            if ($.fn.DataTable.isDataTable('#aiTable')) {
+                                $('#aiTable').DataTable().clear().destroy();
+                            }
+                            $('#aiTable').DataTable({
+                                paging: true,
+                                searching: true,
+                                scrollX: true,
+                                autoWidth: false   // prevents header misalignment
+                            });
+                        });
+
+                      function setChatInput(element) {
+                            const input = document.getElementById("chatInput");
+                            input.value = element.innerText; // assign clicked text
+                            input.focus(); // optional: focus on input
+                        }
+
+                      $(document).ready(function () {
+                            $('#aiTable').DataTable({
+                                retrieve: true,
+                                paging: true,
+                                searching: true
+                            });
+                        });
+
+                     document.addEventListener("DOMContentLoaded", function() {
+                        const form = document.getElementById("aiForm");
+                        const input = document.getElementById("chatInput");
+                        const loader = document.getElementById("loadingScreen");
+
+                        if (form) {
+                            form.addEventListener("submit", function() {
+                                // Clear input
+<!--                                        if (input) input.value = "";-->
+
+                                // Show loading screen
+                                if (loader) loader.style.display = "flex";
+                            });
+                        }
+                    });
+
+                      <![CDATA[
+                            function openTab(evt, tabId) {
+                              var i, tabcontent, tablinks;
+                              tabcontent = document.getElementsByClassName("tab-content");
+                              for (i = 0; i < tabcontent.length; i++) {
+                                tabcontent[i].classList.remove("active");
+                              }
+                              tablinks = document.getElementsByClassName("tab");
+                              for (i = 0; i < tablinks.length; i++) {
+                                tablinks[i].classList.remove("active");
+                              }
+                              document.getElementById(tabId).classList.add("active");
+                              evt.currentTarget.classList.add("active");
+                            }
+                            ]]>
+                      </script>
+                    <div class="chat_input" id="inputquery">
+                        <form id="aiForm" action="/ai/search" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input class="chat_input_input" type="text" id="chatInput" name="chatInput" placeholder="Type your question..." />
+                            <button type="submit" class="chat_send_ai btn primary">Search</button>
+                        </form>
+                    </div>
+
+                    <!-- Loading screen -->
+                    <div id="loadingScreen">
+                        <img src="/ai_ama/static/src/img/ai_load.gif" alt="Loading..." class="loader-img"/>
+                        <div>Thinking with AI...</div>
+                    </div>
+
+                </div>
+            </div>
+    </template>
+
+
+    <template id="error_template" name="AI Error Page">
+    <div class="container mt-5">
+        <div class="modal show" style="display:block; background:rgba(0,0,0,0.5);">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content shadow-lg border-danger">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">⚠️ Error</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p><t t-esc="message"/></p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/" class="btn btn-primary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Sequences for res.partner -->
+    <record id="seq_ai_search" model="ir.sequence">
+        <field name="name">Ai Search</field>
+        <field name="code">ai.search.log</field>
+        <field name="prefix">AI</field>
+        <field name="padding">5</field>
+        <field name="company_id"></field>
+    </record>
+
+    <record id="seq_ai_error_search" model="ir.sequence">
+        <field name="name">Ai Search</field>
+        <field name="code">ai.error.log</field>
+        <field name="prefix">ER</field>
+        <field name="padding">5</field>
+        <field name="company_id"></field>
+    </record>
+</odoo>

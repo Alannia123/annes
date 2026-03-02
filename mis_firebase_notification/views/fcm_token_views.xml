@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fcm_token_tree" model="ir.ui.view">
+        <field name="name">fcm.token.tree</field>
+        <field name="model">fcm.token</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="last_seen"/>
+                <field name="user_id"/>
+                <field name="os"/>
+                <field name="device_name"/>
+                <field name="token"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fcm_token_form" model="ir.ui.view">
+        <field name="name">fcm.token.form</field>
+        <field name="model">fcm.token</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_activate" type="object" string="Activate"
+                            class="btn-primary"  invisible="active == True"/>
+                    <button name="action_deactivate" type="object" string="Deactivate"
+                            class="btn-secondary"  invisible="active == False"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="os"/>
+                        <field name="device_name"/>
+                        <field name="active"/>
+                        <field name="last_seen"/>
+                    </group>
+                    <group>
+                        <field name="token" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fcm_tokens" model="ir.actions.act_window">
+        <field name="name">FCM Tokens</field>
+        <field name="res_model">fcm.token</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <menuitem id="menu_fcm_root" name="FCM" sequence="90"
+              groups="mis_firebase_notification.group_fcm_manager"/>
+
+    <menuitem id="menu_fcm_tokens" name="FCM Tokens"
+              parent="mis_firebase_notification.menu_fcm_root"
+              action="mis_firebase_notification.action_fcm_tokens"
+              groups="mis_firebase_notification.group_fcm_manager"/>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="res_config_settings_view_form_inherit_class_create" model="ir.ui.view">
+            <field name="name">res.config.settings.class.create</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+
+                    <div class="app_settings_block" string="Education">
+                        <h2>Education Setup</h2>
+
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <button name="action_generate_class_records"
+                                            type="object"
+                                            class="btn btn-primary mt16"
+                                            string="Generate Class Records (Once Per Year)"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

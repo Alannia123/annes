@@ -1,0 +1,97 @@
+<odoo>
+
+
+    <record id="view_ai_ama_user_config_tree" model="ir.ui.view">
+        <field name="name">ai.user.config.tree</field>
+        <field name="model">ai.user.config</field>
+        <field name="arch" type="xml">
+            <tree string="AI Users" editable="top">
+                <field name="user_id" options="{'no_open': True, 'no_create': True}"/>
+                <field name="access"/>
+                <field name="db_view_ids" widget="many2many_tags" readonly="access in ['is_admin', 'no_access']" options="{'no_open': True, 'no_create': True}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_ai_ama_user_config" model="ir.actions.act_window">
+        <field name="name">AI Users</field>
+        <field name="res_model">ai.user.config</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <record id="view_ai_ama_db_views_tree" model="ir.ui.view">
+        <field name="name">ai.db.views.tree</field>
+        <field name="model">ai.db.views</field>
+        <field name="arch" type="xml">
+
+            <tree string="AI Db Views" editable="top" create="false">
+                <header>
+                    <button name="get_views_postgres" type="object"  string="Load Views"
+                            groups="ai_ama.group_ai_administrator" display="always" />
+                </header>
+                <field name="name" readonly="True"/>
+                <field name="view_name" readonly="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_ai_ama_db_views" model="ir.actions.act_window">
+        <field name="name">AI DB Views</field>
+        <field name="res_model">ai.db.views</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="view_ai_ama_user_settings_tree" model="ir.ui.view">
+        <field name="name">ai.api.verify.tree</field>
+        <field name="model">ai.api.verify</field>
+        <field name="arch" type="xml">
+            <list string="AI Settings">
+                <field name="name" />
+                <field name="api_key" />
+                <field name="verification_status" />
+                <field name="last_verification_date" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_ama_user_settings_form" model="ir.ui.view">
+        <field name="name">ai.api.verify.tree</field>
+        <field name="model">ai.api.verify</field>
+        <field name="arch" type="xml">
+            <form string="Settings">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" class="oe_inline" />
+                        </group>
+                        <group>
+<!--                                <label string="Api Key" for="api_key"/>-->
+                                <field name="api_key" readonly="0"/>
+                                <button type="object"
+                                        name="action_verify_api_key_ai"
+                                        string="Verify"
+                                        title="Verify Api Key"
+                                        icon="fa-check"
+                                        class="oe_inline btn-primary"/>
+<!--                            </div>-->
+                        </group>
+                    </group>
+                    <group>
+                        <field name="server_b_url"/>
+                        <field name="verification_status"/>
+                        <field name="last_verification_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_ama_user_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">ai.api.verify</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>
