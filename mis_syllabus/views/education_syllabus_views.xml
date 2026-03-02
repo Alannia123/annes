@@ -86,7 +86,7 @@
     <menuitem
             id="education_syllabus_main_menu" action="education_syllabus_action"
             web_icon="mis_syllabus,static/description/syllabus.png"
-            name="MIS Syllabus"/>
+            name="Education Syllabus"/>
 
 
 </odoo>

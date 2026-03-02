@@ -11,7 +11,7 @@
 
 
 
-        <menuitem id="website_redirect_root_menu" name="MIS Website"
+        <menuitem id="website_redirect_root_menu" name="School Website"
               web_icon="mis_website,static/description/website.png"
               action="action_go_to_website" sequence="10"/>
     </data>

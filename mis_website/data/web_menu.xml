@@ -7,7 +7,8 @@
             <field name="name">Home</field>
             <field name="url">/mis_home</field>
 <!--            <field name="page_id" ref="website.homepage_page"/>-->
-             <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>
+             <field name="parent_id" ref="website.main_menu"/>
+<!--             <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>-->
             <field name="sequence" type="int">10</field>
             <field name="website_id" ref="website.default_website"/>
         </record>
@@ -16,7 +17,8 @@
         <record id="prospectus_menu" model="website.menu">
             <field name="name">Prospectus</field>
             <field name="url">/prospectus</field>
-            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>
+            <field name="parent_id" ref="website.main_menu"/>
+<!--            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>-->
             <field name="sequence" type="int">20</field>
             <field name="website_id" ref="website.default_website"/>
         </record>
@@ -128,7 +130,8 @@
          <record id="school_admission_menu" model="website.menu">
             <field name="name">Admission</field>
             <field name="url">/applyonline</field>
-             <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>
+             <field name="parent_id" ref="website.main_menu"/>
+<!--             <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>-->
             <field name="sequence" type="int">50</field>
             <field name="website_id" ref="website.default_website"/>
         </record>
@@ -146,7 +149,8 @@
          <record id="program_events_menu" model="website.menu">
             <field name="name">Program &amp; Events Gallery</field>
             <field name="url">/program_events_gallery</field>
-             <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>
+             <field name="parent_id" ref="website.main_menu"/>
+<!--             <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>-->
             <field name="sequence" type="int">70</field>
             <field name="website_id" ref="website.default_website"/>
         </record>
@@ -155,7 +159,8 @@
             <field name="name">Contact us</field>
             <field name="url">/contactus</field>
 <!--            <field name="page_id" ref="website.contactus_page"/>-->
-            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>
+             <field name="parent_id" ref="website.main_menu"/>
+<!--            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>-->
             <field name="sequence" type="int">80</field>
             <field name="website_id" ref="website.default_website"/>
         </record>
@@ -164,7 +169,8 @@
             <field name="name">E-Magazine</field>
             <field name="url">/e_magazine</field>
 <!--            <field name="page_id" ref="website.contactus_page"/>-->
-            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>
+             <field name="parent_id" ref="website.main_menu"/>
+<!--            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>-->
             <field name="sequence" type="int">90</field>
             <field name="website_id" ref="website.default_website"/>
         </record>
@@ -173,7 +179,8 @@
             <field name="name">App Download</field>
             <field name="url">/app_download</field>
 <!--            <field name="page_id" ref="website.contactus_page"/>-->
-            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>
+            <field name="parent_id" ref="website.main_menu"/>
+<!--            <field name="parent_id" search="[('parent_id', '=', False), ('website_id', '=', 1)]"/>-->
             <field name="sequence" type="int">100</field>
             <field name="website_id" ref="website.default_website"/>
         </record>

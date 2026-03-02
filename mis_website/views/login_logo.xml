@@ -6,7 +6,7 @@
     <template id="custom_login" inherit_id="web.login">
         <xpath expr="//form[@class='oe_login_form']" position="before">
             <div class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}} text-center">
-                <img src="/mis_website/static/src/img/logo.png" alt="Company Logo" style="max-height:120px; max-width: 100%; width:auto"/>
+                <img src="/mis_website/static/src/img/logo.ico" alt="Company Logo" style="max-height:120px; max-width: 100%; width:auto"/>
             </div>
             <t t-if="not is_mobile">
                 <div class="text-shimmer text-center">Welcome To ST.ANNE'S</div>
