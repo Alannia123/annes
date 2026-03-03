@@ -10,7 +10,7 @@
     'author': "Alanniainfotechz",
     'company': 'Alanniainfotechz',
     'maintainer': 'Alanniainfotechz',
-    'depends': ['base', 'mis_education_attendances', 'mis_education_promotion', 'mis_education_exam',
+    'depends': ['base', 'mis_education_attendances', 'mis_education_promotion', 'mis_education_exam', 'mis_homework',
                 'mis_education_time_table'],
     'data': [
         'security/education_security.xml',
