@@ -18,10 +18,11 @@
         'data/sequence.xml',
         'security/ir.model.access.csv',
         # 'reports/fee_report_template.xml',
-        'reports/half_page.xml',
+        'reports/school_fee_template.xml',
+        # 'reports/media_print_format.xml',
         'reports/ir_action_report.xml',
         'reports/application_fee_receipt_template.xml',
-
+        'views/education_fee_structure_menu_views.xml',
         'views/application_receipt_view.xml',
         # 'views/account_move_line_views.xml',
         'views/education_fee_structure_views.xml',
@@ -31,7 +32,6 @@
         # 'views/account_journal_templates.xml',
         'views/account_journal_views.xml',
         'views/fee_concession_view.xml',
-        'views/education_fee_structure_menu_views.xml',
     ],
 
     'assets': {

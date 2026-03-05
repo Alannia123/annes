@@ -286,7 +286,37 @@
     border-color: #cbd5e1;
     cursor: not-allowed;
 }
+.fee-summary-top {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
 
+.summary-box {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.summary-box.payable { background: #e3f2fd; }
+.summary-box.paid { background: #e8f5e9; }
+.summary-box.unpaid { background: #fff3cd; }
+.summary-box.overdue { background: #fdecea; }
+
+        .academic-summary {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 8px 0;
+    border-top: 1px dashed #ddd;
+}
+
+.academic-item {
+    font-size: 13px;
+}
     </style>
 
     <!-- ================= HEADING ================= -->
@@ -402,7 +432,30 @@
 
                         <!-- Right Column -->
                         <td>
+<!-- Fee Summary Header -->
+<div class="fee-summary-top mb-2">
 
+    <div class="summary-box payable">
+        <div>Total Payable</div>
+        <strong>₹ <t t-esc="student.total_payable"/></strong>
+    </div>
+
+    <div class="summary-box paid">
+        <div>Total Paid</div>
+        <strong>₹ <t t-esc="student.total_paid"/></strong>
+    </div>
+
+    <div class="summary-box unpaid">
+        <div>Total Unpaid</div>
+        <strong>₹ <t t-esc="student.total_unpaid"/></strong>
+    </div>
+
+    <div class="summary-box overdue">
+        <div>Total Overdue</div>
+        <strong>₹ <t t-esc="student.total_overdue"/></strong>
+    </div>
+
+</div>
                             <!-- Fees -->
                             <div class="fee-grid-compact">
 
@@ -414,15 +467,15 @@
                                          t-att-class="fee.payment_status === 'paid' ? 'paid-box' : ''">
 
                                         <div class="d-flex justify-content-between">
-                                            <span class="fee-title px-2 py-1 rounded"
-      t-att-class="
-        fee.fee_type === 'admission' ? 'type-admission-bg' :
-        fee.fee_type === 're_admission' ? 'type-readmission-bg' :
-        fee.fee_type === 'monthly' ? 'type-monthly-bg' :
-        'type-other-bg'
-      ">
-    <t t-esc="fee.name"/>
-</span>
+                                                                            <span class="fee-title px-2 py-1 rounded"
+                                      t-att-class="
+                                        fee.fee_type === 'admission' ? 'type-admission-bg' :
+                                        fee.fee_type === 're_admission' ? 'type-readmission-bg' :
+                                        fee.fee_type === 'monthly' ? 'type-monthly-bg' :
+                                        'type-other-bg'
+                                      ">
+                                    <t t-esc="fee.name"/>
+                                </span>
                                             <span class="fw-bold">
                                                 ₹ <t t-esc="fee.amount"/>
                                             </span>
@@ -464,6 +517,38 @@
 
                             <!-- Payment Section -->
                             <div class="action-section">
+
+                                <!-- Academic Summary -->
+<div class="academic-summary mb-2">
+
+    <div class="academic-item">
+        Paid Months:
+        <strong><t t-esc="student.paid_months"/></strong>
+    </div>
+
+    <div class="academic-item">
+        Remaining Months:
+        <strong><t t-esc="student.remaining_months"/></strong>
+    </div>
+
+    <div class="academic-item">
+        Concession:
+        ₹ <strong><t t-esc="student.concession_amount"/></strong>
+    </div>
+
+    <div class="academic-item">
+        Extra:
+        ₹ <strong><t t-esc="student.extra_amount"/></strong>
+    </div>
+
+    <!-- View Bill Button -->
+    <button class="btn btn-sm btn-outline-primary"
+            t-att-data-student="student.id"
+            t-on-click="viewStudentBill">
+        View Bill
+    </button>
+
+</div>
 
                                 <!-- Selected Total -->
     <div class="selected-total-box">

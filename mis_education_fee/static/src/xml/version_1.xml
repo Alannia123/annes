@@ -248,6 +248,156 @@
     border: 1px solid #dbe5f2;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
+    .fee-summary-top-compact {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.summary-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.summary-badge.payable {
+    background: #e3f2fd;
+    color: #0d6efd;
+}
+
+.summary-badge.paid {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.summary-badge.unpaid {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.summary-badge.overdue {
+    background: #fdecea;
+    color: #c62828;
+}
+
+    .academic-summary-compact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.mini-badge {
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-weight: 500;
+}
+
+.mini-badge.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.mini-badge.warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.mini-badge.info {
+    background: #e3f2fd;
+    color: #0d6efd;
+}
+
+.mini-badge.dark {
+    background: #f1f1f1;
+    color: #333;
+}
+.highlight-selected {
+    background-color: #f8d7da;   /* light red background */
+    border: 2px solid #ffc107;   /* optional border or remove if not needed */
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(139,0,0,0.3);
+    color: #8b0000;   /* dark red text */
+    font-weight: bold;
+}
+
+    .modern-checkbox {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.modern-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Checkbox box */
+.modern-checkbox .checkmark {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    display: inline-block;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+/* Hover effect */
+.modern-checkbox:hover .checkmark {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.4);
+}
+
+/* Checked state */
+.modern-checkbox input:checked + .checkmark {
+    background: #28a745;
+    border-color: #28a745;
+}
+
+/* Checkmark tick */
+.modern-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show tick */
+.modern-checkbox input:checked + .checkmark:after {
+    display: block;
+}
+
+/* Change background when checked */
+.modern-checkbox input:checked + .checkmark {
+    background-color: #fff3cd;   /* light yellow background */
+    border-color: #ff9800;       /* orange border */
+}
+
+/* Tick design */
+.modern-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #ff9800;   /* change tick color here */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Disabled (Paid fees) */
+.modern-checkbox input:disabled + .checkmark {
+    background: #e9ecef;
+    border-color: #adb5bd;
+    cursor: not-allowed;
+}
 </style>
     <!-- ================= HEADING ================= -->
     <!-- ================= HEADER + FILTER INLINE ================= -->
@@ -364,6 +514,7 @@
 
                         <!-- Left Column -->
                        <td>
+
     <div class="student-card d-flex justify-content-between align-items-center">
 
         <!-- LEFT: Student Info -->
@@ -403,6 +554,29 @@
 
                         <!-- Right Column -->
                         <td>
+                             <div class="fee-summary-top-compact">
+
+    <span class="summary-badge payable">
+        Payable ₹ <t t-esc="student.total_payable"/>
+    </span>
+
+    <span class="summary-badge paid">
+        Paid ₹ <t t-esc="student.total_paid"/>
+    </span>
+
+    <span class="summary-badge unpaid">
+        Unpaid ₹ <t t-esc="student.total_unpaid"/>
+    </span>
+
+    <span class="summary-badge overdue">
+        Overdue ₹ <t t-esc="student.total_overdue"/>
+    </span>
+
+                                <button t-on-click="() => openStudentFees(student_fee_id)">
+    View Bill
+</button>
+
+</div>
 
                             <!-- Fees -->
                             <div class="fee-grid-compact">
@@ -446,13 +620,13 @@
                                             </span>
 
                                             <label class="modern-checkbox">
-                                                <input type="checkbox"
-                                                       t-att-disabled="fee.payment_status === 'paid'"
-                                                       t-att-data-id="fee.id"
-                                                       t-att-checked="state.selected_fee_ids.includes(fee.id)"
-                                                       t-on-change="toggleFee"/>
-                                                <span class="checkmark"></span>
-                                            </label>
+    <input type="checkbox"
+           t-att-disabled="fee.payment_status === 'paid'"
+           t-att-data-id="fee.id"
+           t-att-checked="state.selected_fee_ids.includes(fee.id)"
+           t-on-change="toggleFee"/>
+    <span class="checkmark"></span>
+</label>
 
 
                                         </div>
@@ -465,14 +639,38 @@
 
                             <!-- Payment Section -->
                             <div class="action-section">
+                                <div class="academic-summary-compact">
 
-                                <!-- Selected Total -->
-    <div class="selected-total-box">
-        <span class="fw-bold text-primary">
-            Selected Total:
-            ₹ <t t-esc="selectedTotal.toFixed(2)"/>
-        </span>
-    </div>
+    <span class="mini-badge success">
+        No of Paid Months: <t t-esc="student.paid_months"/>
+    </span>
+
+    <span class="mini-badge warning">
+        No of Remaining Months: <t t-esc="student.remaining_months"/>
+    </span>
+
+    <span class="mini-badge info">
+        Concession ₹ <t t-esc="student.concession_amount"/>
+    </span>
+
+    <span class="mini-badge dark">
+        Extra ₹ <t t-esc="student.extra_amount"/>
+    </span>
+
+    <button class="btn btn-sm btn-outline-primary ms-2"
+        t-att-data-student="student.id"
+        t-on-click="viewStudentBill">
+    View Bill
+</button>
+
+</div>
+<!-- Selected Total -->
+<div class="selected-total-box highlight-selected">
+    Selected Total:
+<span style="color:#8b0000;font-weight:700;">
+    ₹ <t t-esc="getSelectedTotal(student).toFixed(2)"/>
+</span>
+</div>
 
                                 <!-- Payment Date -->
                                 <input type="date"

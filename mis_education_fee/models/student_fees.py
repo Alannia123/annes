@@ -498,11 +498,21 @@ class StudentFeeLine(models.Model):
         for f in fees:
             student_id = f.student_id.id
 
+
+
             if student_id not in students_map:
+                paid_months = len(f.student_fee_id.fee_line_ids.filtered(lambda f_line: f_line.fee_type == 'monthly' and f_line.payment_status == 'paid'))
+                remaining_months = len(f.student_fee_id.fee_line_ids.filtered(lambda f_line: f_line.fee_type == 'monthly' and f_line.payment_status != 'paid'))
                 students_map[student_id] = {
                     'id': student_id,
                     'student_fee_id': f.student_fee_id.id if f.student_fee_id else False,
                     'register_number': f.register_number,
+                    'total_payable': f.student_fee_id.final_amount_total,
+                    'total_paid': f.student_fee_id.amount_paid,
+                    'total_unpaid': f.student_fee_id.amount_unpaid,
+                    'total_overdue': f.student_fee_id.amount_due,
+                    'paid_months': paid_months,
+                    'remaining_months': remaining_months,
                     'student': f.student_id.name,
                     'roll_no': f.student_id.roll_no,
                     'division': f.student_division_id.name,
@@ -610,6 +620,7 @@ class StudentFeeLine(models.Model):
             'invoice_id': invoice.id,
             'payment_status': 'paid',
         })
+        fees.print_invoice()
 
     def _compute_overdue_days(self):
         today = fields.Date.context_today(self)
@@ -655,11 +666,11 @@ class StudentFeeLine(models.Model):
 
     def print_invoice(self):
         print('PRITNT REPORT____________,self',self)
-        return self.env.ref('mis_education_fee.action_generate_veena_invoice_report').report_action(self)
+        return self.env.ref('mis_education_fee.action_generate_fees_invoice_report').report_action(self)
 
     def unlink(self):
         for record in self:
             if record.payment_status == 'paid':
                 raise UserError(_("You cannot delete this student already made some payments."))
-        return super(StudentFees, self).unlink()
+        return super().unlink()
 

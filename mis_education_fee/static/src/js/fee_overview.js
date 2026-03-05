@@ -9,6 +9,7 @@ export class FeeOverview extends Component {
     setup() {
         this.orm = useService("orm");
         this.notification = useService("notification");
+        this.action = useService("action");
 
         this.state = useState({
             search: "",
@@ -30,6 +31,34 @@ export class FeeOverview extends Component {
             await this.loadFees();
         });
     }
+
+
+    openStudentFees(record_id) {
+
+    console.log('eeeeeeeeeeeee',this);
+    this.action.doAction({
+        type: 'ir.actions.act_window',
+        res_model: 'student.fees',
+        res_id: record_id,
+        views: [[false, 'form']],
+        view_mode: 'form',
+        target: 'current',
+    });
+}
+
+   viewStudentBill(ev) {
+    const studentId = ev.currentTarget.dataset.student;
+
+    const url = "/student/fee/bill/" + studentId;
+
+    const win = window.open(url, "_blank");
+
+    win.onload = function () {
+        win.print();
+    };
+}
+
+
 
     async loadDivisions() {
         this.state.divisions = await this.orm.searchRead(
@@ -102,19 +131,17 @@ export class FeeOverview extends Component {
         }
     }
 
-    get selectedTotal() {
-        let total = 0;
+    getSelectedTotal(student) {
+    let total = 0;
 
-        for (const student of this.state.fees) {
-            for (const fee of student.fees) {
-                if (this.state.selected_fee_ids.includes(fee.id)) {
-                    total += fee.amount;
-                }
-            }
+    for (const fee of student.fees) {
+        if (this.state.selected_fee_ids.includes(fee.id)) {
+            total += fee.amount;
         }
-
-        return total;
     }
+
+    return total;
+}
 
     async payStudentFees(ev) {
 

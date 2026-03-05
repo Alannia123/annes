@@ -68,7 +68,7 @@ class EducationFeeStructure(models.Model):
                 ('class_division_id.class_id', 'in', structure.class_ids.ids)
             ])
 
-            for student in students:
+            for student in students[:10]:
 
                 # Check existing student fees for same academic year
                 existing_fee = StudentFees.search([
