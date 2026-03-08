@@ -33,7 +33,7 @@
 
 
         <record id="teachers_evaluation_to_admin" model="ir.rule">
-            <field name="name">Faculty Student Evaluation Admin</field>
+            <field name="name">Faculty Student Evaluation Faculty</field>
             <field name="model_id" ref="model_education_evaluation"/>
             <field name="domain_force">
                 [('faculty_id.user_id', '=', user.id)]

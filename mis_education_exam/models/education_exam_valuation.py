@@ -221,7 +221,7 @@ class EducationExamValuation(models.Model):
 
         else:
             valuation_line_obj = self.env['exam.valuation.line']
-            tc_students = self.division_id.student_ids.filtered(lambda s: not s.tc_issued)
+            tc_students = self.division_id.student_ids.filtered(lambda s: not s.tc_issued and not s.drop_out)
             students = tc_students.sorted(lambda s: int(s.roll_no) if s.roll_no and s.roll_no.isdigit() else 0 )
             if not students:
                 raise UserError(_('There are no students in this Division'))

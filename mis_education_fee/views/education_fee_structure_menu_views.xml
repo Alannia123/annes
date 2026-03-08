@@ -7,7 +7,7 @@
 
     <!--    Educational Dashboard Menu-->
     <menuitem id="education_fee_collect_dashboard_menu_root" parent="education_fee_menu_root"
-              name="Student Fees Overview" sequence="1" action="education_fee_overview_action"/>
+              name="Fees Collect Overview" sequence="1" action="education_fee_overview_action"/>
 
     <menuitem id="menu_student_fees_root" name="Fee Details" parent="education_fee_menu_root" sequence="2" groups="">
         <menuitem id="menu_student_fees" name="Student Payments"  action="action_student_fees" sequence="1"/>

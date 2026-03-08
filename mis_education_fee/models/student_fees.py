@@ -70,6 +70,7 @@ class StudentFees(models.Model):
     overdue_fee_len = fields.Integer('Fee len')
     image_1920 = fields.Image('Image', copy=False)
     conseesion_id = fields.Many2one('student.fee.concession', 'Consession', copy=False)
+    last_fee_line_id = fields.Many2one('student.fee.line', 'last Paid Fee Line', copy=False)
 
     def action_open_concession(self):
         self.ensure_one()
@@ -444,7 +445,13 @@ class StudentFeeLine(models.Model):
         # ✅ Call your existing invoice logic
         fees.action_create_invoice(fee_ids, payment_date)
 
-        return True
+        if fees:
+            fees[0].student_fee_id.last_fee_line_id = fees[0].id
+
+        return {
+            "report_name": "mis_education_fee.report_mis_fee_invoices",
+            "res_id": fees[0].id,
+        }
 
     @api.model
     def get_fee_lines(self, search=None, roll_no=None, division_id=None):
@@ -506,6 +513,7 @@ class StudentFeeLine(models.Model):
                 students_map[student_id] = {
                     'id': student_id,
                     'student_fee_id': f.student_fee_id.id if f.student_fee_id else False,
+                    'last_fee_line_id': f.student_fee_id.last_fee_line_id.id if f.student_fee_id else False,
                     'register_number': f.register_number,
                     'total_payable': f.student_fee_id.final_amount_total,
                     'total_paid': f.student_fee_id.amount_paid,
@@ -518,6 +526,7 @@ class StudentFeeLine(models.Model):
                     'division': f.student_division_id.name,
                     'fees': []
                 }
+
 
             students_map[student_id]['fees'].append({
                 'id': f.id,
@@ -620,7 +629,13 @@ class StudentFeeLine(models.Model):
             'invoice_id': invoice.id,
             'payment_status': 'paid',
         })
-        fees.print_invoice()
+
+        print('fffffffffffffffffffff',"mis_education_fee.action_generate_fees_invoice_report")
+        print('fffffffffffffffffffff',fees[0].id)
+
+        return {
+            "invoice_id": invoice.id,
+        }
 
     def _compute_overdue_days(self):
         today = fields.Date.context_today(self)

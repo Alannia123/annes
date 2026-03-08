@@ -143,36 +143,38 @@ class EducationEvaluationLine(models.Model):
                                   help="Enter class division for attendance",
                                   required=True)
     date = fields.Date(string='Date', required=True, help="Date of attendance")
-    emotional_maturity = fields.Selection([('high_mature', 'Highly Mature'),
+    emotional_maturity = fields.Selection([
+                                            
+                                            ('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Emotional Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Emotional Maturity', copy=False, )
     social_maturity = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Social Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Social Maturity', copy=False, )
     intellectual_maturity = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Intellectual Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Intellectual Maturity', copy=False, )
     moral_maturity = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Moral/Ethical Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Moral/Ethical Maturity', copy=False, )
     personal_resp = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Personal Responsibility', copy=False)
+                                           ('immature', 'Immature')], 'Personal Responsibility', copy=False, )
     adaptobilty_resilience = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Adaptability/Resilience', copy=False)
+                                           ('immature', 'Immature')], 'Adaptability/Resilience', copy=False, )
     academic_year_id = fields.Many2one('education.academic.year',
                                        string='Academic Year',
                                        related='evaluation_id.academic_year_id',
@@ -181,7 +183,7 @@ class EducationEvaluationLine(models.Model):
 class AnnualEvaluationLine(models.Model):
     """Used for managing attendance shift details"""
     _name = 'education.annual.evaluation.line'
-    _description = 'Half Evaluation Lines'
+    _description = 'Annual Evaluation Lines'
 
     name = fields.Char(string='Name', help="Name of evaluation")
     evaluation_id = fields.Many2one('education.evaluation',
@@ -206,32 +208,32 @@ class AnnualEvaluationLine(models.Model):
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Emotional Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Emotional Maturity', copy=False, )
     social_maturity = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Social Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Social Maturity', copy=False, )
     intellectual_maturity = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Intellectual Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Intellectual Maturity', copy=False, )
     moral_maturity = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Moral/Ethical Maturity', copy=False)
+                                           ('immature', 'Immature')], 'Moral/Ethical Maturity', copy=False, )
     personal_resp = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Personal Responsibility', copy=False)
+                                           ('immature', 'Immature')], 'Personal Responsibility', copy=False, )
     adaptobilty_resilience = fields.Selection([('high_mature', 'Highly Mature'),
                                            ('mature', 'Mature'),
                                            ('develop', 'Developing'),
                                            ('need_guide', 'Needs Guidence'),
-                                           ('immature', 'Immature')], 'Adaptability/Resilience', copy=False)
+                                           ('immature', 'Immature')], 'Adaptability/Resilience', copy=False, )
     academic_year_id = fields.Many2one('education.academic.year',
                                        string='Academic Year',
                                        related='evaluation_id.academic_year_id',

@@ -47,7 +47,7 @@
                                                     style="height: 140px; width: 140px;padding-top: 10px; padding-left: 20px;padding-bottom: 5px" alt="Logo"/>
                                 </div>
                                 <div style="border: none;" class="col-10">
-                                    <h2 class="text-center">ST.ANNE'S SCHOOL, DUTTAPUKUR, CHOTOJAGULIA.</h2>
+                                    <h2 class="text-center">MARY IMMACULATE ENGLISH MEDIUM SCHOOL, PATILACHANDRA, BASIRHAT</h2>
                                     <h3 class="text-center">PROGRESS REPORT, ACADEMIC YEAR : <t t-esc="doc.academic_year_id.name"/></h3>
                                 </div>
                             </div>

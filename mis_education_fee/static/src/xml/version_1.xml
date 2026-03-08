@@ -572,9 +572,29 @@
         Overdue ₹ <t t-esc="student.total_overdue"/>
     </span>
 
-                                <button t-on-click="() => openStudentFees(student_fee_id)">
-    View Bill
+                              <button type="button"
+        class="btn btn-sm d-flex align-items-center gap-2 px-3 py-1 shadow-sm view-fee-btn"
+        t-att-data-id="student.student_fee_id"
+        t-on-click="openStudentFees">
+
+    <span>View All Fees</span>
+    <i class="fa fa-arrow-right"></i>
 </button>
+
+<style>
+.view-fee-btn{
+    background:#f8f9ff;
+    border:1px solid #dfe3ff;
+    border-radius:20px;
+    color:#2c3e50;
+    font-weight:500;
+    transition:all 0.2s ease;
+}
+.view-fee-btn:hover{
+    background:#e9ecff;
+    transform:translateX(2px);
+}
+</style>
 
 </div>
 
@@ -657,11 +677,6 @@
         Extra ₹ <t t-esc="student.extra_amount"/>
     </span>
 
-    <button class="btn btn-sm btn-outline-primary ms-2"
-        t-att-data-student="student.id"
-        t-on-click="viewStudentBill">
-    View Bill
-</button>
 
 </div>
 <!-- Selected Total -->
@@ -691,6 +706,14 @@
                                         t-att-data-student="student.id"
                                         t-on-click="payStudentFees">
                                     Pay
+                                </button>
+                                <!-- View Last Bill -->
+                                <button class="btn btn-link p-0 ms-2"
+                                        t-att-data-fee="student.last_fee_line_id"
+                                        t-on-click="viewStudentBill"
+                                        title="View Last Bill">
+
+                                    <i class="fa fa-file-pdf-o text-danger" style="font-size:18px;"></i>
                                 </button>
 
                             </div>

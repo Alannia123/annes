@@ -177,7 +177,7 @@
         <field name="target">current</field>
     </record>
     <!--  Menu Items for education exam   -->
-    <menuitem id="examination_root_menu" name="Exam" sequence="11"
+    <menuitem id="examination_root_menu" name="MIS Exam" sequence="11"
               groups="mis_education_core.group_education_principal,mis_education_core.group_education_office_admin"
               web_icon="mis_education_exam,static/description/icon.png"/>
     <menuitem id="examination_main_menu"

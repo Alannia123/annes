@@ -33,32 +33,24 @@ export class FeeOverview extends Component {
     }
 
 
-    openStudentFees(record_id) {
+    openStudentFees(ev) {
 
-    console.log('eeeeeeeeeeeee',this);
+    const record_id = parseInt(ev.currentTarget.dataset.id);
+
+    console.log("Clicked record:", record_id);
+
+    if (!record_id) {
+        return;
+    }
+
     this.action.doAction({
-        type: 'ir.actions.act_window',
-        res_model: 'student.fees',
+        type: "ir.actions.act_window",
+        res_model: "student.fees",
         res_id: record_id,
-        views: [[false, 'form']],
-        view_mode: 'form',
-        target: 'current',
+        views: [[false, "form"]],
+        target: "current",
     });
 }
-
-   viewStudentBill(ev) {
-    const studentId = ev.currentTarget.dataset.student;
-
-    const url = "/student/fee/bill/" + studentId;
-
-    const win = window.open(url, "_blank");
-
-    win.onload = function () {
-        win.print();
-    };
-}
-
-
 
     async loadDivisions() {
         this.state.divisions = await this.orm.searchRead(
@@ -143,46 +135,67 @@ export class FeeOverview extends Component {
     return total;
 }
 
+viewStudentBill(ev) {
+
+    const feeId = parseInt(ev.currentTarget.dataset.fee);
+
+    if (!feeId) {
+        this.notification.add("No bill found.", { type: "warning" });
+        return;
+    }
+
+    const url = `/report/pdf/mis_education_fee.report_mis_fee_invoices/${feeId}`;
+
+    window.open(url, "_blank");
+}
+
     async payStudentFees(ev) {
 
-        const studentId = parseInt(ev.target.dataset.student);
-        const student = this.state.fees.find(s => s.id === studentId);
+    const studentId = parseInt(ev.target.dataset.student);
+    const student = this.state.fees.find(s => s.id === studentId);
 
-        if (!student) {
-            return;
-        }
-
-        const selectedFees = student.fees
-            .filter(f => this.state.selected_fee_ids.includes(f.id))
-            .map(f => f.id);
-
-        if (!selectedFees.length) {
-            this.notification.add("Please select at least one fee to pay.", {
-                type: "warning",
-            });
-            return;
-        }
-
-        await this.orm.call(
-            "student.fee.line",
-            "action_pay_selected_fees",
-            [selectedFees],
-            {
-                payment_date: this.state.payment_date,
-                payment_mode: this.state.payment_mode,
-            }
-        );
-
-        this.notification.add("Selected fees processed successfully.", {
-            type: "success",
-        });
-
-        this.state.selected_fee_ids = this.state.selected_fee_ids.filter(
-            id => !selectedFees.includes(id)
-        );
-
-        await this.loadFees();
+    if (!student) {
+        return;
     }
+
+    const selectedFees = student.fees
+        .filter(f => this.state.selected_fee_ids.includes(f.id))
+        .map(f => f.id);
+
+    if (!selectedFees.length) {
+        this.notification.add("Please select at least one fee to pay.", {
+            type: "warning",
+        });
+        return;
+    }
+
+    const result = await this.orm.call(
+    "student.fee.line",
+    "action_pay_selected_fees",
+    [selectedFees],
+    {
+        payment_date: this.state.payment_date,
+        payment_mode: this.state.payment_mode,
+    }
+);
+
+console.log("RESULT:", result);
+
+if (result && result.report_name) {
+    const url = `/report/pdf/${result.report_name}/${result.res_id}`;
+    window.open(url, "_blank");
+}
+
+    this.notification.add("Selected fees processed 6666successfully.", {
+        type: "success",
+    });
+
+    this.state.selected_fee_ids = this.state.selected_fee_ids.filter(
+        id => !selectedFees.includes(id)
+    );
+
+    await this.loadFees();
+}
 }
 
 FeeOverview.template = "mis_education_fee.FeeOverview";

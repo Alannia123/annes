@@ -99,9 +99,8 @@
               <table class="no-border school-header"  >
                   <td width="15%"><img t-if="student.class_division_id.company_id.logo" t-att-src="image_data_uri(student.class_division_id.company_id.logo)"
                                                 style="height: 70px; width:75 px;padding-top: 5px; padding-left: 5px;padding-bottom: 5px" alt="Logo"/></td>
-                  <td width="85%"><span style="font-size: 24px;font-style: italic;text-align: center">ST.ANNE'S SCHOOL</span><br/>
-                  <span style="font-size: 13px;text-align: center">Vill+P.O - Chotojagulia, P.S - Duttapukur,
-North 24 Parganas - 743294, West Bengal</span></td>
+                  <td width="85%"><span style="font-size: 24px;font-style: italic;text-align: center">Mary Immaculate English Medium School</span><br/>
+                  <span style="font-size: 13px;text-align: center"> Vill.-Patlichandra, P.O.-Paschim Madhyampur, P.S.-Basirhat, Dist.-North 24 Parganas, PIN-743429</span></td>
               </table>
               <table class="info-table" >
                   <tr>
