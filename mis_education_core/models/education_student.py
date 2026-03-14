@@ -174,6 +174,7 @@ class EducationStudent(models.Model):
     ch_password = fields.Char('Password Sample', readonly=False)
     login = fields.Char('Login', readonly=True)
     hide_result = fields.Boolean('Hide Result', readonly=False)
+    promoted = fields.Boolean('Promoted?', readonly=False)
     student_html = fields.Html('Attendance & Fees',  compute="_compute_student_html", sanitize=False)
     student_html_compute = fields.Boolean('StudentHtmlComp')
     tc_issued = fields.Boolean('TC Issued', copy=False, tracking=True)
@@ -235,6 +236,9 @@ class EducationStudent(models.Model):
             total_days = result.get('total_days', 0) or 0
             present_days = result.get('present_days', 0) or 0
             absent_days = total_days - present_days
+
+            current_aca_id = self.env['education.academic.year'].search([('enable', '=', True)], limit=1)
+            no_of_work_days = current_aca_id.total_no_of_working_days
 
             # =========================
             # ATTENDANCE PERCENTAGE
@@ -342,12 +346,14 @@ class EducationStudent(models.Model):
                             <div style="{header_style}">📊 Attendance</div>
 
                             <div style="{details_header_row_style}">
-                                <div style="{details_header_item_style} color:#004d40;">📅 Total</div>
+                                <div style="{details_header_item_style} color:#750f42;">📅 No Of Working Days</div>
+                                <div style="{details_header_item_style} color:#004d40;">📅 No Of ATT Days</div>
                                 <div style="{details_header_item_style} color:#1b5e20;">✅ Present</div>
                                 <div style="{details_header_item_style} color:#c62828;">❌ Absent</div>
                             </div>
 
                             <div style="{details_value_row_style}">
+                                <div style="{details_value_item_style} color:#750f42;">{no_of_work_days}</div>
                                 <div style="{details_value_item_style} color:#004d40;">{total_days}</div>
                                 <div style="{details_value_item_style} color:#1b5e20;">{present_days}</div>
                                 <div style="{details_value_item_style} color:#c62828;">{absent_days}</div>

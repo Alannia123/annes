@@ -8,7 +8,7 @@
                         <style>
                     @page {
     size: A4 landscape;
-    margin: 5mm 5mm 12mm 12mm;
+    margin: 10mm 5mm 6mm 10mm;
 }
 
                     body {
@@ -19,7 +19,7 @@
                     .page {
                         width: 100%;
                         height: 100%;
-                        padding-top: 10mm; /* extra internal top padding */
+                        padding-top: 15mm; /* extra internal top padding */
                         page-break-after: always !important;
                     }
 
@@ -68,49 +68,6 @@
                     <t t-set="annual_result" t-value="student_aca_exam_results.filtered(lambda aca_exam_result: aca_exam_result.exam_id.id == annual.id)"/>
                     <div class="page" style="page-break-after:always !important;" >
                         <div id="header">
-<!--                            <div class="row" style="border : 1.8px solid black ;border-bottom: none;">-->
-<!--                                <div style="border: none;" class="col-2">-->
-<!--                                    <img t-if="student.class_division_id.company_id.logo" t-att-src="image_data_uri(student.class_division_id.company_id.logo)"-->
-<!--                                                    style="height: 80px; width: 80px;padding-top: 5px; padding-bottom: 5px" alt="Logo"/>-->
-<!--                                </div>-->
-<!--                                <div style="border: none; width: 100%; line-height: 2.2; " class="col-10">-->
-<!--                                    <h2 style="margin: 0; font-size: 20px; line-height: 1.6;">-->
-<!--                                        MARY IMMACULATE ENGLISH MEDIUM SCHOOL, PATILACHANDRA, BASIRHAT-->
-<!--                                    </h2>-->
-<!--                                    <h3 style="margin: 5px 0 0 0; font-size: 18px; line-height: 1.6;padding-left: 80px;">-->
-<!--                                        PROGRESS REPORT, ACADEMIC YEAR :-->
-<!--                                        <t t-esc="student_aca_exam_results[0].academic_year_id.name"/>-->
-<!--                                    </h3>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-
-
-<!--                           <div class="row" style="border:1.8px solid black;border-bottom:none; position:relative;">-->
-
-<!--    &lt;!&ndash; LOGO &ndash;&gt;-->
-<!--    <div style="border:none;" class="col-2">-->
-<!--        <img t-if="student.class_division_id.company_id.logo"-->
-<!--             t-att-src="image_data_uri(student.class_division_id.company_id.logo)"-->
-<!--             style="height:80px;width:80px;position:absolute;left:10px;top:5px;"-->
-<!--             alt="Logo"/>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; TEXT &ndash;&gt;-->
-<!--    <div style="border:none;width:100%;line-height:2.2;text-align:center;" class="col-10">-->
-
-<!--        <h2 style="margin:0;font-size:20px;line-height:1.6;">-->
-<!--            MARY IMMACULATE ENGLISH MEDIUM SCHOOL, PATILACHANDRA, BASIRHAT-->
-<!--        </h2>-->
-
-<!--        <h3 style="margin:5px 0 0 0;font-size:18px;line-height:1.6;">-->
-<!--            PROGRESS REPORT, ACADEMIC YEAR :-->
-<!--            <t t-esc="student_aca_exam_results[0].academic_year_id.name"/>-->
-<!--        </h3>-->
-
-<!--    </div>-->
-
-<!--</div>-->
                             <div style="border:1.8px solid black;border-bottom:none;">
                                 <table style="width:100%; border:none;">
                                     <tr style="border:none;">
@@ -122,27 +79,15 @@
                                      style="height:65px;width:65px;"
                                      alt="Logo"/>
                             </td>
-
-<!--                                        &lt;!&ndash; TITLE &ndash;&gt;-->
-<!--                                        <td style="text-align:center; vertical-align:middle;border:none;">-->
-<!--                                            <h2 style="margin:0;font-size:20px;color:#0399ff;">-->
-<!--                                                MARY IMMACULATE ENGLISH MEDIUM SCHOOL, PATILACHANDRA, BASIRHAT-->
-<!--                                            </h2>-->
-
-<!--                                            <h3 style="margin:5px 0 0 0;font-size:18px;">-->
-<!--                                                PROGRESS REPORT, ACADEMIC YEAR :-->
-<!--                                                <t t-esc="student_aca_exam_results[0].academic_year_id.name"/>-->
-<!--                                            </h3>-->
-<!--                                        </td>-->
                                         <!-- TITLE -->
 <td style="text-align:center; vertical-align:middle; border:none;">
 
     <!-- School Name -->
     <h2 style="
         margin:0;
-        font-size:20px;
+        font-size:18px;
         color:#0b3d91;
-        font-family:Cambria, serif;
+        font-family:Times New Roman, Times, serif;
         font-weight:bold;
         letter-spacing:1.5px;
         text-transform:uppercase;">
@@ -161,7 +106,7 @@
     <h3 style="
         margin:0;
         font-size:18px;
-        font-family:Georgia, serif;
+        font-family:Times New Roman, Times, serif;
         font-weight:bold;
         color:#222;
         letter-spacing:1px;">
@@ -506,302 +451,333 @@
                                                                     <th name="term_3" style="width: 30%;" class="text-center"><span>Annual</span></th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody style="line-height: 10px">
-                                                                <tr>
-                                                                    <td name="bengali_hindi" style="background-color: #f0f0f5;" class="text-center"><span>Emotional Maturity</span></td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="half_md">
-                                                                            <t t-if="half_md.emotional_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(half_md.fields_get()['emotional_maturity']['selection'])[half_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.emotional_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(half_md.fields_get()['emotional_maturity']['selection'])[half_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.emotional_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(half_md.fields_get()['emotional_maturity']['selection'])[half_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.emotional_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(half_md.fields_get()['emotional_maturity']['selection'])[half_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.emotional_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(half_md.fields_get()['emotional_maturity']['selection'])[half_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(half_md.fields_get()['emotional_maturity']['selection'])[half_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="annual_md">
+                                                            <tbody style="line-height:10px">
+<!-- Emotional Maturity -->
+<tr>
+    <td style="background:#f0f0f5;" class="text-center">
+        Emotional Maturity
+    </td>
 
-                                                                            <t t-if="annual_md.emotional_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(annual_md.fields_get()['emotional_maturity']['selection'])[annual_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.emotional_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(annual_md.fields_get()['emotional_maturity']['selection'])[annual_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.emotional_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(annual_md.fields_get()['emotional_maturity']['selection'])[annual_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.emotional_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(annual_md.fields_get()['emotional_maturity']['selection'])[annual_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.emotional_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(annual_md.fields_get()['emotional_maturity']['selection'])[annual_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(annual_md.fields_get()['emotional_maturity']['selection'])[annual_md.emotional_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td name="bengali_hindi" style="background-color: #f0f0f5;" class="text-center"><span>Social Maturity</span></td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="half_md">
+    <td class="text-center">
+        <t t-if="half_md and half_md.emotional_maturity">
+             <t t-if="half_md.emotional_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="half_md.emotional_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="half_md.emotional_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="half_md.emotional_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="half_md.emotional_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
 
-                                                                            <t t-if="half_md.social_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(half_md.fields_get()['social_maturity']['selection'])[half_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.social_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(half_md.fields_get()['social_maturity']['selection'])[half_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.social_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(half_md.fields_get()['social_maturity']['selection'])[half_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.social_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(half_md.fields_get()['social_maturity']['selection'])[half_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.social_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(half_md.fields_get()['social_maturity']['selection'])[half_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(half_md.fields_get()['social_maturity']['selection'])[half_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="annual_md">
+    <td class="text-center">
+        <t t-if="annual_md and annual_md.emotional_maturity">
+             <t t-if="annual_md.emotional_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="annual_md.emotional_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="annual_md.emotional_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="annual_md.emotional_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="annual_md.emotional_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+</tr>
 
-                                                                            <t t-if="annual_md.social_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(annual_md.fields_get()['social_maturity']['selection'])[annual_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.social_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(annual_md.fields_get()['social_maturity']['selection'])[annual_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.social_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(annual_md.fields_get()['social_maturity']['selection'])[annual_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.social_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(annual_md.fields_get()['social_maturity']['selection'])[annual_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.social_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(annual_md.fields_get()['social_maturity']['selection'])[annual_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(annual_md.fields_get()['social_maturity']['selection'])[annual_md.social_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td name="bengali_hindi" style="background-color: #f0f0f5;" class="text-center"><span>Intellectual Maturity</span></td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="half_md">
 
-                                                                            <t t-if="half_md.intellectual_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(half_md.fields_get()['intellectual_maturity']['selection'])[half_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.intellectual_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(half_md.fields_get()['intellectual_maturity']['selection'])[half_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.intellectual_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(half_md.fields_get()['intellectual_maturity']['selection'])[half_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.intellectual_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(half_md.fields_get()['intellectual_maturity']['selection'])[half_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.intellectual_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(half_md.fields_get()['intellectual_maturity']['selection'])[half_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(half_md.fields_get()['intellectual_maturity']['selection'])[half_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="annual_md">
+<!-- Social Maturity -->
+<tr>
+    <td style="background:#f0f0f5;" class="text-center">
+        Social Maturity
+    </td>
 
-                                                                            <t t-if="annual_md.intellectual_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(annual_md.fields_get()['intellectual_maturity']['selection'])[annual_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.intellectual_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(annual_md.fields_get()['intellectual_maturity']['selection'])[annual_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.intellectual_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(annual_md.fields_get()['intellectual_maturity']['selection'])[annual_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.intellectual_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(annual_md.fields_get()['intellectual_maturity']['selection'])[annual_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.intellectual_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(annual_md.fields_get()['intellectual_maturity']['selection'])[annual_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(annual_md.fields_get()['intellectual_maturity']['selection'])[annual_md.intellectual_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td name="bengali_hindi" style="background-color: #f0f0f5;" class="text-center"><span>Moral/Ethical Maturity</span></td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="half_md">
 
-                                                                            <t t-if="half_md.moral_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(half_md.fields_get()['moral_maturity']['selection'])[half_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.moral_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(half_md.fields_get()['moral_maturity']['selection'])[half_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.moral_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(half_md.fields_get()['moral_maturity']['selection'])[half_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.moral_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(half_md.fields_get()['moral_maturity']['selection'])[half_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.moral_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(half_md.fields_get()['moral_maturity']['selection'])[half_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(half_md.fields_get()['moral_maturity']['selection'])[half_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="annual_md">
+    <td class="text-center">
+        <t t-if="half_md and half_md.social_maturity">
+             <t t-if="half_md.social_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="half_md.social_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="half_md.social_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="half_md.social_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="half_md.social_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
 
-                                                                            <t t-if="annual_md.moral_maturity == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(annual_md.fields_get()['moral_maturity']['selection'])[annual_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.moral_maturity == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(annual_md.fields_get()['moral_maturity']['selection'])[annual_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.moral_maturity == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(annual_md.fields_get()['moral_maturity']['selection'])[annual_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.moral_maturity == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(annual_md.fields_get()['moral_maturity']['selection'])[annual_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.moral_maturity == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(annual_md.fields_get()['moral_maturity']['selection'])[annual_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(annual_md.fields_get()['moral_maturity']['selection'])[annual_md.moral_maturity]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td name="bengali_hindi" style="background-color: #f0f0f5;" class="text-center"><span>Personal Responsibility</span></td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="half_md">
+    <td class="text-center">
+        <t t-if="annual_md and annual_md.social_maturity">
+             <t t-if="annual_md.social_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="annual_md.social_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="annual_md.social_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="annual_md.social_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="annual_md.social_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
 
-                                                                            <t t-if="half_md.personal_resp == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(half_md.fields_get()['personal_resp']['selection'])[half_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.personal_resp == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(half_md.fields_get()['personal_resp']['selection'])[half_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.personal_resp == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(half_md.fields_get()['personal_resp']['selection'])[half_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.personal_resp == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(half_md.fields_get()['personal_resp']['selection'])[half_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.personal_resp == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(half_md.fields_get()['personal_resp']['selection'])[half_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(half_md.fields_get()['personal_resp']['selection'])[half_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="annual_md">
+</tr>
 
-                                                                            <t t-if="annual_md.personal_resp == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(annual_md.fields_get()['personal_resp']['selection'])[annual_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.personal_resp == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(annual_md.fields_get()['personal_resp']['selection'])[annual_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.personal_resp == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(annual_md.fields_get()['personal_resp']['selection'])[annual_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.personal_resp == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(annual_md.fields_get()['personal_resp']['selection'])[annual_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.personal_resp == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(annual_md.fields_get()['personal_resp']['selection'])[annual_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(annual_md.fields_get()['personal_resp']['selection'])[annual_md.personal_resp]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td name="bengali_hindi" style="background-color: #f0f0f5;" class="text-center"><span>Adaptability/Resilience</span></td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="half_md">
 
-                                                                            <t t-if="half_md.adaptobilty_resilience == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(half_md.fields_get()['adaptobilty_resilience']['selection'])[half_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.adaptobilty_resilience == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(half_md.fields_get()['adaptobilty_resilience']['selection'])[half_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.adaptobilty_resilience == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(half_md.fields_get()['adaptobilty_resilience']['selection'])[half_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.adaptobilty_resilience == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(half_md.fields_get()['adaptobilty_resilience']['selection'])[half_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="half_md.adaptobilty_resilience == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(half_md.fields_get()['adaptobilty_resilience']['selection'])[half_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(half_md.fields_get()['adaptobilty_resilience']['selection'])[half_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <t t-if="annual_md">
+<!-- Intellectual Maturity -->
+<tr>
+    <td style="background:#f0f0f5;" class="text-center">
+        Intellectual Maturity
+    </td>
 
-                                                                            <t t-if="annual_md.adaptobilty_resilience == 'high_mature'">
-                                                                                <span style="color: #339933;"><b><t t-esc="dict(annual_md.fields_get()['adaptobilty_resilience']['selection'])[annual_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.adaptobilty_resilience == 'mature'">
-                                                                                <span style="color: #69005c;"><b><t t-esc="dict(annual_md.fields_get()['adaptobilty_resilience']['selection'])[annual_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.adaptobilty_resilience == 'develop'">
-                                                                                <span style="color: #000099;"><b><t t-esc="dict(annual_md.fields_get()['adaptobilty_resilience']['selection'])[annual_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.adaptobilty_resilience == 'need_guide'">
-                                                                                <span style="color: #ff9e2e;"><b><t t-esc="dict(annual_md.fields_get()['adaptobilty_resilience']['selection'])[annual_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-elif="annual_md.adaptobilty_resilience == 'immature'">
-                                                                                <span style="color: #ff0000;"><b><t t-esc="dict(annual_md.fields_get()['adaptobilty_resilience']['selection'])[annual_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                            <t t-else="">
-                                                                                <span style="color: #333300;"><b><t t-esc="dict(annual_md.fields_get()['adaptobilty_resilience']['selection'])[annual_md.adaptobilty_resilience]"/></b></span>
-                                                                            </t>
-                                                                        </t>
-                                                                    </td>
-                                                                </tr>
+    <td class="text-center">
+        <t t-if="half_md and half_md.intellectual_maturity">
+             <t t-if="half_md.intellectual_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="half_md.intellectual_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="half_md.intellectual_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="half_md.intellectual_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="half_md.intellectual_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
 
-                                                            </tbody>
+    <td class="text-center">
+        <t t-if="annual_md and annual_md.intellectual_maturity">
+             <t t-if="annual_md.intellectual_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="annual_md.intellectual_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="annual_md.intellectual_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="annual_md.intellectual_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="annual_md.intellectual_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+</tr>
+
+
+<!-- Moral/Ethical Maturity -->
+<tr>
+    <td style="background:#f0f0f5;" class="text-center">
+        Moral / Ethical Maturity
+    </td>
+
+    <td class="text-center">
+        <t t-if="half_md and half_md.moral_maturity">
+             <t t-if="half_md.moral_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="half_md.moral_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="half_md.moral_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="half_md.moral_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="half_md.moral_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+
+    <td class="text-center">
+        <t t-if="annual_md and annual_md.moral_maturity">
+             <t t-if="annual_md.moral_maturity == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="annual_md.moral_maturity == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="annual_md.moral_maturity == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="annual_md.moral_maturity == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="annual_md.moral_maturity == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+</tr>
+
+
+<!-- Personal Responsibility -->
+<tr>
+    <td style="background:#f0f0f5;" class="text-center">
+        Personal Responsibility
+    </td>
+
+    <td class="text-center">
+        <t t-if="half_md and half_md.personal_resp">
+             <t t-if="half_md.personal_resp == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="half_md.personal_resp == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="half_md.personal_resp == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="half_md.personal_resp == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="half_md.personal_resp == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+
+    <td class="text-center">
+        <t t-if="annual_md and annual_md.personal_resp">
+             <t t-if="annual_md.personal_resp == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="annual_md.personal_resp == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="annual_md.personal_resp == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="annual_md.personal_resp == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="annual_md.personal_resp == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+</tr>
+
+
+<!-- Adaptability / Resilience -->
+<tr>
+    <td style="background:#f0f0f5;" class="text-center">
+        Adaptability / Resilience
+    </td>
+
+    <td class="text-center">
+        <t t-if="half_md and half_md.adaptobilty_resilience">
+             <t t-if="half_md.adaptobilty_resilience == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="half_md.adaptobilty_resilience == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="half_md.adaptobilty_resilience == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="half_md.adaptobilty_resilience == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="half_md.adaptobilty_resilience == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+
+    <td class="text-center">
+        <t t-if="annual_md and annual_md.adaptobilty_resilience">
+             <t t-if="annual_md.adaptobilty_resilience == 'high_mature'">
+                 <span style="color:#339933; "><b>Higly Mature</b></span>
+             </t>
+            <t t-elif="annual_md.adaptobilty_resilience == 'mature'">
+                 <span style="color:#69005c; "><b>Mature</b></span>
+             </t>
+            <t t-elif="annual_md.adaptobilty_resilience == 'develop'">
+                 <span style="color:#000099; "><b>Developing</b></span>
+             </t>
+            <t t-elif="annual_md.adaptobilty_resilience == 'need_guide'">
+                 <span style="color:#ff9e2e; "><b>Needs Guidence</b></span>
+             </t>
+            <t t-elif="annual_md.adaptobilty_resilience == 'immature'">
+                 <span style="color:#ff0000; "><b>Immature</b></span>
+             </t>
+            <t t-else="">
+                 <span style="color:#ff0000; "><b>-</b></span>
+             </t>
+        </t>
+    </td>
+</tr>
+
+</tbody>
                                                         </table>
                                                     </td>
                                                 </tr>
@@ -810,7 +786,7 @@
 <!--                                                        Table Grade-->
                                                         <table width="100%" style="border: 1.5px solid black;">
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" colspan="2">
+                                                                <td class="text-center" style="background-color: #9494b8;" colspan="2">
                                                                     <b>MATURITY DEVELOPMENT TABLE</b><br/>
                                                                     <span>(Out of 35)</span>
                                                                 </td>
@@ -843,31 +819,37 @@
 <!--                                                        Table Grade-->
                                                         <table width="100%" style="border: 1.5px solid black;">
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" colspan="2"><b>GRADE TABLE</b></td>
+                                                                <td class="text-center" style="background-color: #8cb3d9;" colspan="3"><b>GRADE TABLE</b></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" width="70%"><b>90 &amp; ABOVE</b></td>
+                                                                <td class="text-center" style="background-color: #f0f0f5;" width="35%"><b>90 &amp; ABOVE</b></td>
                                                                 <td class="text-center" width="30%"><b>AA</b></td>
+                                                                <td class="text-center" style="color: #2d5986;" width="35%"><b>OUTSTANDING</b></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" width="70%"><b>80.0 - 89.0</b></td>
+                                                                <td class="text-center" style="background-color: #f0f0f5;" width="35%"><b>80.0 - 89.0</b></td>
                                                                 <td class="text-center" width="30%"><b>A+</b></td>
+                                                                <td class="text-center" style="color: #0000cc;" width="35%"><b>EXCELLENT</b></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" width="70%"><b>70.0 - 79.0</b></td>
+                                                                <td class="text-center" style="background-color: #f0f0f5;" width="35%"><b>70.0 - 79.0</b></td>
                                                                 <td class="text-center" width="30%"><b>A</b></td>
+                                                                <td class="text-center" style="color: #009999;" width="35%"><b>VERY GOOD</b></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" width="70%"><b>60.0 - 69.0</b></td>
+                                                                <td class="text-center" style="background-color: #f0f0f5;" width="35%"><b>60.0 - 69.0</b></td>
                                                                 <td class="text-center" width="30%"><b>B</b></td>
+                                                                <td class="text-center" style="color: #a3297a;" width="35%"><b>GOOD</b></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" width="70%"><b>50.0 - 59.0</b></td>
+                                                                <td class="text-center" style="background-color: #f0f0f5;" width="35%"><b>50.0 - 59.0</b></td>
                                                                 <td class="text-center" width="30%"><b>C</b></td>
+                                                                <td class="text-center" style="color: #009999;" width="35%"><b>FAIR</b></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center" style="background-color: #f0f0f5;" width="70%"><b>BELOW 50</b></td>
+                                                                <td class="text-center" style="background-color: #f0f0f5;" width="35%"><b>BELOW 50</b></td>
                                                                 <td class="text-center" width="30%"><b>D</b></td>
+                                                                <td class="text-center" style="color: #0000cc;" width="35%"><b>AVERAGE</b></td>
                                                             </tr>
 
                                                         </table>
@@ -884,8 +866,23 @@
                                                 </td>
                                                 <td style="background-color: #f0f0f5;text-align: center"><span><b>HALF YEARLY EXAM</b></span></td>
                                                 <td style="background-color: #f0f0f5;text-align: center"><span><b>ANNUAL EXAM</b></span></td>
-                                                <td style="background-color: #f0f0f5;text-align: start;vertical-align: middle;" rowspan="2">
-                                                    <span><b>PROMOTED TO </b></span>
+                                                <td style="background-color:#f0f0f5; text-align:center; vertical-align:middle;" rowspan="2">
+                                                    <div style="font-weight:bold; font-size:13px;">
+                                                        PROMOTED TO
+                                                    </div>
+
+                                                    <t t-if="not student.promoted">
+                                                        <div style="
+                                                            margin-top:5px;
+                                                            font-size:16px;
+                                                            font-weight:bold;
+                                                            color:#006600;
+                                                            border:2px solid #006600;
+                                                            padding:5px;
+                                                            border-radius:5px;">
+                                                            <t t-esc="student.class_division_id.promote_class_id.name"/>
+                                                        </div>
+                                                    </t>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -976,7 +973,7 @@
         <template id="report_rank_card_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
-                    <t t-foreach="doc.student_ids[:2]" t-as="student">
+                    <t t-foreach="doc.student_ids" t-as="student">
                         <t t-call="mis_education_exam.report_rank_card_template_document" />
                     </t>
                 </t>

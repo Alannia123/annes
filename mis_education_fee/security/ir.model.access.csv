@@ -11,4 +11,6 @@ access_student_fee_line,access.student.fee.line,model_student_fee_line,,1,1,1,1
 access_application_fee_receipt,access.application.fee.receipte,model_application_fee_receipt,,1,1,1,0
 access_student_fee_concession,access.student.fee.concession,model_student_fee_concession,,1,1,1,0
 access_student_fee_concession_line,access.student.fee.concession.line,model_student_fee_concession_line,,1,1,1,0
+access_fine_remove_wizard,access.fine.remove.wizard,model_fine_remove_wizard,,1,1,1,0
+access_student_fine_log,access.student.fine.log,model_student_fine_log,,1,1,1,0
 

@@ -122,18 +122,41 @@ export class FeeOverview extends Component {
                 this.state.selected_fee_ids.filter(id => id !== feeId);
         }
     }
-
+//Get Selected total
     getSelectedTotal(student) {
-    let total = 0;
+        let total = 0;
 
-    for (const fee of student.fees) {
-        if (this.state.selected_fee_ids.includes(fee.id)) {
-            total += fee.amount;
+        for (const fee of student.fees) {
+            if (this.state.selected_fee_ids.includes(fee.id)) {
+                total += fee.amount;
+            }
         }
-    }
 
-    return total;
-}
+        return total;
+    }
+    //Get Selected Fine total
+    getSelectedFine(student) {
+        let total = 0;
+
+        for (const fee of student.fees) {
+            if (this.state.selected_fee_ids.includes(fee.id)) {
+                total += fee.fine_amount;
+            }
+        }
+
+        return total;
+    }//Get Selected total
+    getSelectedConTotal(student) {
+        let total = 0;
+
+        for (const fee of student.fees) {
+            if (this.state.selected_fee_ids.includes(fee.id)) {
+                total += fee.concession_amount;
+            }
+        }
+
+        return total;
+    }
 
 viewStudentBill(ev) {
 

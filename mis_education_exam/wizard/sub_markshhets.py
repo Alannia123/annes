@@ -14,12 +14,15 @@ class SubGenerateMArk(models.TransientModel):
 
 
     exam_valuation_id = fields.Many2one('education.exam.valuation', string='Select Validated Exam', required=True, domain=[('state', '=', 'completed')])
-
+    # generate_empty = fields.Boolean(default=False, help='Generate empty marksheet')
 
     def action_generate_subject_marksheet(self):
-        data = {
-            'exam_valuation_id': self.exam_valuation_id.id,
-            # 'exam': self.exam_id.id,
-        }
-        return self.env.ref('mis_education_exam.exam_subject_marksheet_pdf').report_action(self.exam_valuation_id.id)
+        # data = {
+        #     'generate_empty': self.generate_empty
+        # }
+
+        return self.env.ref(
+            'mis_education_exam.exam_subject_marksheet_pdf'
+        ).report_action(self.exam_valuation_id)
+
 

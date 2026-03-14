@@ -8,29 +8,15 @@
     </record>
 
 
-<!--    <record id="ir_cron_mark_run_compute" model="ir.cron">-->
-<!--        <field name="name">Marksheet Compute</field>-->
-<!--        <field name="model_id" ref="mis_education_exam.model_education_exam_results"/> &lt;!&ndash; Replace with your model &ndash;&gt;-->
-<!--        <field name="state">code</field>-->
-<!--        <field name="code">model._total_marks_all_cron()</field>-->
-<!--        <field name="interval_number">1</field> &lt;!&ndash; Interval Number &ndash;&gt;-->
-<!--        <field name="interval_type">days</field> &lt;!&ndash; Interval Type: minutes, hours, days, weeks, months &ndash;&gt;-->
-<!--        <field name="numbercall">-1</field> &lt;!&ndash; -1 for unlimited &ndash;&gt;-->
-<!--        <field name="doall" eval="False"/> &lt;!&ndash; True to execute missed jobs &ndash;&gt;-->
-<!--        <field name="nextcall" eval="(DateTime.now().replace(hour=2, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />-->
+<!--     &lt;!&ndash; Sequences for res.partner &ndash;&gt;-->
+<!--    <record id="seq_stu_evaluation" model="ir.sequence">-->
+<!--        <field name="name">Student Evaluation</field>-->
+<!--        <field name="code">education.evaluation</field>-->
+<!--        <field name="prefix">EVA</field>-->
+<!--        <field name="padding">5</field>-->
+<!--        <field name="company_id"></field>-->
 <!--    </record>-->
 
-<!--    <record id="ir_cron_mark_run_compute_mark_totla" model="ir.cron">-->
-<!--        <field name="name">Total Compute</field>-->
-<!--        <field name="model_id" ref="mis_education_exam.model_exam_valuation_line"/> &lt;!&ndash; Replace with your model &ndash;&gt;-->
-<!--        <field name="state">code</field>-->
-<!--        <field name="code">model.calculate_total()</field>-->
-<!--        <field name="interval_number">1</field> &lt;!&ndash; Interval Number &ndash;&gt;-->
-<!--        <field name="interval_type">days</field> &lt;!&ndash; Interval Type: minutes, hours, days, weeks, months &ndash;&gt;-->
-<!--        <field name="numbercall">-1</field> &lt;!&ndash; -1 for unlimited &ndash;&gt;-->
-<!--        <field name="doall" eval="False"/> &lt;!&ndash; True to execute missed jobs &ndash;&gt;-->
-<!--        <field name="nextcall" eval="(DateTime.now().replace(hour=2, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />-->
-<!--    </record>-->
 
 
 </odoo>

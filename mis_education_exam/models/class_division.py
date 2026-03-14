@@ -128,17 +128,26 @@ class EducationStudent(models.Model):
         return self.env.ref('mis_education_exam.action_generate_rank_student_card').report_action(self.id)
 
     def get_half_evaluations(self):
-        currect_aca_id = self.env['education.academic.year'].search([('enable', '=', True)], limit=1)
-        stu_half_evalaution_id = self.env['education.half.evaluation.line'].search([('student_id', '=', self.id), ('academic_year_id', '=', currect_aca_id.id)])
-        if stu_half_evalaution_id.evaluation_id.state == 'done':
-            return stu_half_evalaution_id
-        else:
-            False
+        currect_aca_id = self.env['education.academic.year'].search(
+            [('enable', '=', True)], limit=1)
+
+        stu_half_evalaution_id = self.env['education.half.evaluation.line'].search([
+            ('student_id', '=', self.id),
+            ('academic_year_id', '=', currect_aca_id.id),
+            ('evaluation_id.state', '=', 'done')
+        ], limit=1)
+
+        return stu_half_evalaution_id
 
     def get_annual_evaluations(self):
-        currect_aca_id = self.env['education.academic.year'].search([('enable', '=', True)], limit=1)
-        stu_annual_evalaution_id = self.env['education.annual.evaluation.line'].search([('student_id', '=', self.id), ('academic_year_id', '=', currect_aca_id.id)])
-        if stu_annual_evalaution_id.evaluation_id.state == 'done':
-            return stu_annual_evalaution_id
-        else:
-            False
+        currect_aca_id = self.env['education.academic.year'].search(
+            [('enable', '=', True)], limit=1
+        )
+
+        stu_annual_evalaution_id = self.env['education.annual.evaluation.line'].search([
+            ('student_id', '=', self.id),
+            ('academic_year_id', '=', currect_aca_id.id),
+            ('evaluation_id.state', '=', 'done')
+        ], limit=1)
+
+        return stu_annual_evalaution_id

@@ -35,7 +35,7 @@ class EducationEvaluation(models.Model):
                              help="Stages of attendance")
     academic_year_id = fields.Many2one(
         'education.academic.year',
-        string='Academic Year',
+        string='Academic Year', readonly=True,
         default=lambda self: self.env['education.academic.year'].search([('enable', '=', True)], limit=1).id
     )
     faculty_id = fields.Many2one('education.faculty',
@@ -46,6 +46,35 @@ class EducationEvaluation(models.Model):
         'res.company', string='Company', help="Current Company",
         default=lambda self: self.env.company)
 
+    _sql_constraints = [
+        ('unique_division_academic_year',
+         'unique(division_id, academic_year_id)',
+         'Evaluation already exists for this Division in the selected Academic Year!')
+    ]
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', _('New')) == _('New'):
+
+            # seq = self.env['ir.sequence'].next_by_code('education.evaluation') or _('New')
+
+            # Get Academic Year
+            academic_year = ''
+            seq = 'EVA'
+            if vals.get('academic_year_id'):
+                year = self.env['education.academic.year'].browse(vals['academic_year_id'])
+                academic_year = year.name or ''
+
+            # Get Division
+            division_name = ''
+            if vals.get('division_id'):
+                division = self.env['education.class.division'].browse(vals['division_id'])
+                division_name = division.name or ''
+
+            vals['name'] = f"{seq}/{academic_year}/{division_name}"
+
+        return super(EducationEvaluation, self).create(vals)
+
 
     def action_create_evaluation_line(self):
         """Ensure only one attendance per division/date — keep first, delete others."""
@@ -55,7 +84,7 @@ class EducationEvaluation(models.Model):
         # Find all attendances with same division/date
         existing_evaluation = self.sudo().search([
             ('division_id', '=', self.division_id.id),
-            ('date', '=', self.date),
+            ('academic_year_id', '=', self.academic_year_id.id),
         ], order='id asc')
 
         if len(existing_evaluation) > 1:
@@ -76,7 +105,7 @@ class EducationEvaluation(models.Model):
                 'target': 'current',
             }
         else:
-            self.name = str(self.date)
+            # self.name = str(self.date)
             eval_half_line_obj = self.env['education.half.evaluation.line']
             eval_annual_line_obj = self.env['education.annual.evaluation.line']
             students = self.division_id.student_ids

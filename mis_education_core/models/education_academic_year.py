@@ -44,6 +44,7 @@ class EducationAcademicYear(models.Model):
         string="Next Academic Year",
         help="Enable this flag for the upcoming academic year to use as default in forms."
     )
+    total_no_of_working_days = fields.Integer('Total No of Working Days', required=True, tracking=True)
 
     _sql_constraints = [
         ('unique_enabled_year', 'UNIQUE(enable)',

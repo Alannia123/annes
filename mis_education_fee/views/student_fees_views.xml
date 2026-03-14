@@ -100,10 +100,16 @@
                                 <field name="academic_year" column_invisible="1"/>
                                 <field name="monthly_fee" column_invisible="1"/>
                                 <field name="fee_type" column_invisible="1"/>
-                                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                <field name="concession_amount" widget="monetary" options="{'currency_field': 'currency_id'}" />
-                                <field name="fine_amount" widget="monetary" options="{'currency_field': 'currency_id'}" />
-                                <field name="amount_to_paid" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount"  sum="Total"/>
+                                <field name="concession_amount"  sum="Total"/>
+                                <field name="fine_amount"  sum="Total"/>
+
+                                <button name="action_open_fine_wizard"
+                                        type="object"
+                                        icon="fa-pencil" groups="mis_education_core.group_education_principal"
+                                        class="btn-link"
+                                        title="Edit Fine"/>
+                                <field name="amount_to_paid"  sum="Total"/>
                                 <field name="journal_id" column_invisible="1"/>
                                 <field name="payment_mode" readonly="payment_status == 'paid'"/>
                                 <field name="pay_status" column_invisible="1"/>

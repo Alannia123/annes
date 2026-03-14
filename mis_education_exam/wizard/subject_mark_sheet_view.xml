@@ -8,8 +8,12 @@
         <field name="arch" type="xml">
             <form string="Subject Marksheet">
                 <group>
-<!--                    <field name="exam_id"/>-->
-                    <field name="exam_valuation_id" options="{'no_create': True, 'no_open': True}"/>
+                    <group>
+                        <field name="exam_valuation_id" options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+<!--                    <group>-->
+<!--                         <field name="generate_empty" widget="boolean_toggle"/>-->
+<!--                    </group>-->
                 </group>
                 <footer>
                     <button string="Generate Subject Marksheet" type="object" name="action_generate_subject_marksheet" class="btn-primary"/>

@@ -172,7 +172,7 @@
 /* ================= FEE CARD ================= */
 .fee-box {
     background: linear-gradient(145deg,#ffffff,#f3f8ff);
-    border: 1px solid #dbe5f2;
+    border: 1px solid #111827;
     border-radius: 10px;
     padding: 10px;
     min-height: 80px;
@@ -344,7 +344,7 @@
 .modern-checkbox .checkmark {
     width: 20px;
     height: 20px;
-    background: #fff;
+    background: #ebebe0;
     border: 2px solid #ccc;
     border-radius: 6px;
     display: inline-block;
@@ -378,7 +378,7 @@
 /* Change background when checked */
 .modern-checkbox input:checked + .checkmark {
     background-color: #fff3cd;   /* light yellow background */
-    border-color: #ff9800;       /* orange border */
+    border-color: #111827;       /* orange border */
 }
 
 /* Tick design */
@@ -387,7 +387,7 @@
     top: 2px;
     width: 5px;
     height: 10px;
-    border: solid #ff9800;   /* change tick color here */
+    border: solid #4d004d;   /* change tick color here */
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
@@ -397,6 +397,30 @@
     background: #e9ecef;
     border-color: #adb5bd;
     cursor: not-allowed;
+}
+
+    .type-admission-bg{
+    background:#9a76ad;
+    border-radius:10px;
+    color:#001242;
+}
+
+.type-re_admission-bg{
+    background:#9a76ad;
+    border-radius:10px;
+    color:#001242;
+}
+
+.type-monthly-bg{
+    background:#ffb8ad;
+    border-radius:10px;
+    color:#171738;
+}
+
+.type-other-bg{
+<!--    background:#a88a75;-->
+<!--    border-radius:10px;-->
+    color:#700070;
 }
 </style>
     <!-- ================= HEADING ================= -->
@@ -577,7 +601,7 @@
         t-att-data-id="student.student_fee_id"
         t-on-click="openStudentFees">
 
-    <span>View All Fees</span>
+    <span>View Fee details</span>
     <i class="fa fa-arrow-right"></i>
 </button>
 
@@ -609,15 +633,16 @@
                                          t-att-class="fee.payment_status === 'paid' ? 'paid-box' : ''">
 
                                         <div class="d-flex justify-content-between">
-                                            <span class="fee-title px-2 py-1 rounded"
-      t-att-class="
-        fee.fee_type === 'admission' ? 'type-admission-bg' :
-        fee.fee_type === 're_admission' ? 'type-readmission-bg' :
-        fee.fee_type === 'monthly' ? 'type-monthly-bg' :
-        'type-other-bg'
-      ">
-    <t t-esc="fee.name"/>
-</span>
+                                            <span
+        t-attf-class="badge small px-2 py-1 rounded-pill #{
+            fee.fee_type == 'admission' and 'type-admission-bg' or
+            fee.fee_type == 're_admission' and 'type-re_admission-bg' or
+            fee.fee_type == 'monthly' and 'type-monthly-bg' or
+            'type-other-bg'
+        }">
+
+        <t t-esc="fee.name"/>
+    </span>
                                             <span class="fw-bold">
                                                 ₹ <t t-esc="fee.amount"/>
                                             </span>
@@ -670,11 +695,11 @@
     </span>
 
     <span class="mini-badge info">
-        Concession ₹ <t t-esc="student.concession_amount"/>
+        Concession ₹ <t t-esc="getSelectedConTotal(student).toFixed(2)"/>
     </span>
 
     <span class="mini-badge dark">
-        Extra ₹ <t t-esc="student.extra_amount"/>
+        Extra ₹ <t t-esc="getSelectedFine(student).toFixed(2)"/>
     </span>
 
 

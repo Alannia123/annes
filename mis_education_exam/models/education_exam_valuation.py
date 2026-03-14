@@ -397,7 +397,9 @@ class StudentsExamValuationLine(models.Model):
             Onchange method to validate mark_scored and update pass_or_fail.
         """
         # if self.valuation_id.is_assign_mark:
+        print('5555555555555555222222', self.exam_mark)
         if self.exam_mark or self.assign_mark:
+            print('5555555555555555',self.exam_mark)
             self.mark_scored = self.exam_mark + self.assign_mark
         if self.mark_scored > self.valuation_id.mark:
             raise UserError(_('Mark Scored must be less than Max Mark'))

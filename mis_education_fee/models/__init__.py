@@ -11,3 +11,4 @@ from . import student_fees
 from . import account_move_extend
 from . import application_receipt
 from . import fee_concession
+from . import fine_logs

@@ -43,4 +43,24 @@
         <field name="name">Website Editor</field>
         <field name="category_id" ref="mis_education_core.module_category_education"/>
     </record>
+
+    <record id="education_student_teacher_rule" model="ir.rule">
+        <field name="name">Teacher: Only Their Division Students</field>
+        <field name="model_id" ref="model_education_student"/>
+        <field name="groups" eval="[(4, ref('mis_education_core.group_education_faculty'))]"/>
+        <field name="domain_force">
+            [('class_division_id.faculty_id.user_id', '=', user.id)]
+        </field>
+    </record>
+
+    <record id="education_student_admin_rule" model="ir.rule">
+        <field name="name">Admin: See All Students</field>
+        <field name="model_id" ref="model_education_student"/>
+        <field name="groups" eval="[(4, ref('mis_education_core.group_education_principal')),
+                                        (4, ref('mis_education_core.group_education_office_admin'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+
+
 </odoo>

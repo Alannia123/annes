@@ -30,6 +30,7 @@
         'views/education_class_views.xml',
         'views/education_class_division_views.xml',
         'views/education_student_views.xml',
+        # 'views/stuent_teachers_id_view.xml',
         'views/education_faculty_views.xml',
         'views/education_document_views.xml',
         'views/document_document_views.xml',

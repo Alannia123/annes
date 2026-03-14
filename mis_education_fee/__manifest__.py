@@ -22,8 +22,10 @@
         # 'reports/media_print_format.xml',
         'reports/ir_action_report.xml',
         'reports/application_fee_receipt_template.xml',
+        'wizard/fine_wizard_view.xml',
 
         'views/application_receipt_view.xml',
+        'views/fine_log_view.xml',
         # 'views/account_move_line_views.xml',
         'views/education_fee_structure_views.xml',
         'views/student_fees_views.xml',

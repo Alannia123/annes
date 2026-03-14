@@ -73,6 +73,7 @@
                 <field name="phone"/>
                 <field name="no_of_discipline_history" groups="mis_education_core.group_education_principal"/>
                 <field name="hide_result" groups="mis_education_core.group_education_principal" widget="boolean_toggle"/>
+                <field name="promoted" groups="mis_education_core.group_education_principal" widget="boolean_toggle"/>
             </tree>
         </field>
     </record>
@@ -153,7 +154,7 @@
                             <field name="company_id" invisible="1"/>
                         </group>
                         <group>
-                            <field name="admission_class_id" readonly="1"/>
+                            <field name="admission_class_id" invisible="1"/>
                             <field name="class_division_id" required="1"/>
                             <field name="roll_no" placeholder="Student Roll Number" required="1"/>
                         </group>
@@ -350,21 +351,26 @@
             </search>
         </field>
     </record>
+
     <!--Action of Education Student-->
     <record id="education_student_action" model="ir.actions.act_window">
         <field name="name">Student</field>
         <field name="res_model">education.student</field>
-        <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="education_student_search"/>
         <field name="context">{'search_default_class': 1, 'create': True}</field>
         <field name="domain">[('tc_issued', '=', False), ('drop_out', '=', False)]</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_create">
-                Create your first student here.
-            </p>
-        </field>
+
+        <!-- Force first view -->
+        <field name="view_id" ref="mis_education_core.education_student_view_tree"/>
+
+        <field name="views" eval="[
+            (ref('mis_education_core.education_student_view_tree'), 'tree'),
+            (ref('mis_education_core.education_student_view_form'), 'form')
+        ]"/>
     </record>
+
+
 
     <record id="education_student_tc_drop_search" model="ir.ui.view">
         <field name="name">education.student.search</field>
@@ -436,6 +442,7 @@
     <menuitem id="education_student_tc_root_menu" name="TC &amp; Dropouts" sequence="10"
                 web_icon="mis_education_core,static/description/tc.png"
              groups="mis_education_core.group_education_principal,mis_education_core.group_education_office_admin" action="education_student_tc_issued_action"/>
+
 
 
 </odoo>

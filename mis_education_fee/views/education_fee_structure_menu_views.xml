@@ -23,5 +23,12 @@
             parent="education_fee_menu_root" name="Configuration" groups="mis_education_core.group_education_principal"
             sequence="4"/>
 
+    <menuitem
+    id="menu_student_fine_log"
+    name="Fine Change Logs"
+    parent="education_fee_menu_root"
+    action="action_student_fine_log"
+    sequence="50"/>
+
 </odoo>
 

@@ -38,7 +38,7 @@
                             <th rowspan="2" style="background-color: #ffe6b3;width:4%;">Sr.No</th>
                             <th rowspan="2" style="background-color: #ffe6b3;width:5%;">Roll NO</th>
                             <th rowspan="2" style="background-color: #ffe6b3;width:20%;width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Student Name</th>
-                            <th colspan="3" style="background-color: #ffe6b3;width:50%;"><t t-esc="doc.subject_id.name"/></th>
+                            <th colspan="3" style="background-color: #ffe6b3;width:50%;text-align: center;"><t t-esc="doc.subject_id.name"/></th>
                         </tr>
                         <tr>
                             <th style="background-color: #ffbb99;width:4%;">Exam Mark</th>
@@ -47,44 +47,76 @@
                         </tr>
                     </thead>
                     <t t-set="count" t-value="0"/>
+<!--                    <t t-set="empty" t-value="generate_empty"/>-->
                     <t t-foreach="doc.valuation_line_ids" t-as="exam_line">
                         <tbody>
                             <tr>
+
                                 <t t-set="sl_no" t-value="count + 1"/>
-                                <td style="text-align: center;"><t t-esc="sl_no"/> </td>
-                                <td style="text-align: center;"><t t-esc="exam_line.student_id.roll_no"/> </td>
-                                <td style="background-color: #e6f9ff;"><t t-esc="exam_line.student_name"/> </td>
+
+                                <td style="text-align:center;">
+                                    <t t-esc="sl_no"/>
+                                </td>
+
+                                <td style="text-align:center;">
+                                    <t t-esc="exam_line.student_id.roll_no"/>
+                                </td>
+
+                                <td style="background-color:#e6f9ff;">
+                                    <t t-esc="exam_line.student_name"/>
+                                </td>
+
+
+<!--                                &lt;!&ndash; EXAM MARK &ndash;&gt;-->
+<!--                                <t t-if="empty">-->
+<!--                                    <td style="text-align:center;background-color:#f9ecf2;">  </td>-->
+<!--                                </t>-->
                                 <t t-if="exam_line.exam_mark == 0">
-                                    <td style="text-align: center;background-color: #f9ecf2;" > - </td>
+                                    <td style="text-align:center;background-color:#f9ecf2;"> - </td>
                                 </t>
                                 <t t-else="">
-                                    <td style="text-align: center;background-color: #f9ecf2;" >
-                                        <t t-esc="int(exam_line.exam_mark)" />
+                                    <td style="text-align:center;background-color:#f9ecf2;">
+                                        <t t-esc="int(exam_line.exam_mark)"/>
+
                                     </td>
                                 </t>
+
+
+<!--                                &lt;!&ndash; ASSIGNMENT MARK &ndash;&gt;-->
+<!--                                <t t-if="empty">-->
+<!--                                    <td style="text-align:center;background-color:#f2ffe6;">  </td>-->
+<!--                                </t>-->
                                 <t t-if="exam_line.assign_mark == 0">
-                                    <td style="text-align: center;background-color: #f2ffe6;" > - </td>
+                                    <td style="text-align:center;background-color:#f2ffe6;"> - </td>
+
                                 </t>
                                 <t t-else="">
-                                    <td style="text-align: center;background-color: #f2ffe6;" >
-                                        <t t-esc="int(exam_line.assign_mark)" />
+                                    <td style="text-align:center;background-color:#f2ffe6;">
+                                        <t t-esc="int(exam_line.assign_mark)"/>
                                     </td>
                                 </t>
+
+
+<!--                                &lt;!&ndash; TOTAL MARK &ndash;&gt;-->
+<!--                                <t t-if="empty">-->
+<!--                                    <td style="text-align:center;">  </td>-->
+<!--                                </t>-->
                                 <t t-if="exam_line.mark_scored == 0">
-                                    <td style="text-align: center;" > - </td>
+                                    <td style="text-align:center;"> - </td>
                                 </t>
                                 <t t-elif="exam_line.mark_scored &lt; doc.pass_mark">
-                                    <td style="text-align: center;color: red;" >
-                                        <t t-esc="int(exam_line.mark_scored)" />
+                                    <td style="text-align:center;color:red;">
+                                        <t t-esc="int(exam_line.mark_scored)"/>
                                     </td>
                                 </t>
                                 <t t-else="">
-                                    <td style="text-align: center; color: green;" >
-                                        <t t-esc="int(exam_line.mark_scored)" />
+                                    <td style="text-align:center;color:green;">
+                                        <t t-esc="int(exam_line.mark_scored)"/>
                                     </td>
                                 </t>
+
                             </tr>
-                        </tbody>
+                            </tbody>
                         <t t-set="count" t-value="count + 1"/>
                     </t>
                 </table>

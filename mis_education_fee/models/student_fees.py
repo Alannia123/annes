@@ -201,10 +201,10 @@ class StudentFees(models.Model):
             rec.amount_fine = sum(line.fine_amount for line in rec.fee_line_ids)
             rec.amount_concession = sum(line.concession_amount for line in rec.fee_line_ids)
             rec.final_amount_total = sum(line.amount_to_paid for line in rec.fee_line_ids)
-            rec.amount_paid = sum(line.amount for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'paid'))
-            amount_unpaid = sum(line.amount for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'unpaid'))
-            rec.amount_due = sum(line.amount for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'over_due'))
-            rec.amount_upcoming = sum(line.amount for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'upcoming'))
+            rec.amount_paid = sum(line.amount_to_paid for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'paid'))
+            amount_unpaid = sum(line.amount_to_paid for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'unpaid'))
+            rec.amount_due = sum(line.amount_to_paid for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'over_due'))
+            rec.amount_upcoming = sum(line.amount_to_paid for line in rec.fee_line_ids.filtered(lambda r: r.payment_status == 'upcoming'))
             rec.amount_unpaid = amount_unpaid + rec.amount_due + rec.amount_upcoming
             paid_entries = rec.fee_line_ids.filtered(lambda r: r.payment_status == 'paid')
             if paid_entries:
@@ -379,6 +379,7 @@ class StudentFeeLine(models.Model):
         ('re_admission', 'Re-Admission'),
         ('monthly', 'Monthly'),
         ('other', 'Others')], string='Fee Type', required=True, copy=False)
+    fine_log_ids = fields.One2many('student.fine.log', 'fee_line_id', string="Fine Logs")
 
     @api.depends('amount', 'concession_amount', 'fine_amount')
     def _compute_amount_to_paid(self):
@@ -386,8 +387,23 @@ class StudentFeeLine(models.Model):
             rec.amount_to_paid = (
                     rec.amount
                     - rec.concession_amount
-                    + rec.fine_amount
             )
+
+    def action_open_fine_wizard(self):
+        self.ensure_one()
+
+        return {
+            'name': 'Edit Fine Amount',
+            'type': 'ir.actions.act_window',
+            'res_model': 'fine.remove.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_fee_line_id': self.id,
+                'default_ex_fine_amount': self.fine_amount,
+                'default_fine_amount': self.fine_amount,
+            }
+        }
 
     def _cron_update_overdue_fees(self):
 
@@ -531,6 +547,8 @@ class StudentFeeLine(models.Model):
             students_map[student_id]['fees'].append({
                 'id': f.id,
                 'name': f.product_id.name,
+                'concession_amount': f.concession_amount,
+                'fine_amount': f.fine_amount,
                 'amount': f.amount_to_paid,
                 'payment_status': f.payment_status,
                 'fee_type': f.fee_type,
@@ -577,7 +595,7 @@ class StudentFeeLine(models.Model):
             print('dfdsfdsfd777777777777',month_names)
             combined_desc = "Tuition Fee (" + ", ".join(month_names) + ")"
 
-            total_monthly_amount = sum(monthly_fees.mapped('amount'))
+            total_monthly_amount = sum(monthly_fees.mapped('amount_to_paid'))
 
             invoice_lines.append((0, 0, {
                 'product_id': tuition_product.id,
@@ -593,7 +611,27 @@ class StudentFeeLine(models.Model):
                 'product_id': fee.product_id.id,
                 'name': fee.fee_description or fee.product_id.name,
                 'quantity': 1,
-                'price_unit': fee.amount,
+                'price_unit': fee.amount_to_paid,
+            }))
+
+        # ✅ 3️⃣ Handle Fine Amount (Combine all fines)
+        total_fine = sum(fees.mapped('fine_amount'))
+
+        if total_fine > 0:
+
+            fine_product = self.env['product.product'].search([
+                ('name', '=', 'Miscellaneous'),
+                ('detailed_type', '=', 'service')
+            ], limit=1)
+
+            if not fine_product:
+                raise UserError(_("Please create a Service product named 'Miscellaneous' for fines."))
+
+            invoice_lines.append((0, 0, {
+                'product_id': fine_product.id,
+                'name': fine_product.name,
+                'quantity': 1,
+                'price_unit': total_fine,
             }))
 
         # ✅ 3️⃣ Create Invoice

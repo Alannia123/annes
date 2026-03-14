@@ -92,6 +92,8 @@ class StudentFeeConcession(models.Model):
             return
         self.class_division_id = self.student_id.class_division_id.id
         student_fee = self.env['student.fees'].search([ ('student_id', '=', self.student_id.id), ('academic_year', '=', self.academic_year.id)], limit=1)
+        print('DDDDDDDDDDDDDDDDDDDDD',self.student_id, self.academic_year)
+        print('DDDDDDDDDDDDDDDDDDDDD---------------',student_fee)
         # ✅ Raise error if no fee found
         if not student_fee:
             raise ValidationError("There are no fees found for this student in the selected Academic Year." )
