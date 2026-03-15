@@ -24,3 +24,27 @@ class ResConfigSettings(models.TransientModel):
     is_amazon_connector = fields.Boolean(
         config_parameter='mis_website_backend.amazon_connector', default=False,
         help='Enable or disable the Amazon S3 connector.')
+
+    facebook_link = fields.Char(
+        string="Facebook Link",
+        config_parameter='website.facebook_link'
+    )
+
+    instagram_link = fields.Char(
+        string="Instagram Link",
+        config_parameter='website.instagram_link'
+    )
+
+    youtube_link = fields.Char(
+        string="YouTube Link",
+        config_parameter='website.youtube_link'
+    )
+
+    twitter_link = fields.Char(
+        string="Twitter Link",
+        config_parameter='website.twitter_link'
+    )
+    google_map_link = fields.Char(
+        string="Google Map Location",
+        config_parameter='website.google_map_link'
+    )

@@ -49,6 +49,58 @@
                         </span>
                     </div>
                 </div>
+
+                 <div class="app_settings_block" data-string="Social Media Links">
+                    <h2>Social Media Links</h2>
+
+                    <div class="row mt16 o_settings_container">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="google_map_link"/>
+                                <field name="google_map_link"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="facebook_link"/>
+                                <div class="text-muted">Facebook page URL</div>
+                                <field name="facebook_link"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="instagram_link"/>
+                                <div class="text-muted">Instagram page URL</div>
+                                <field name="instagram_link"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="youtube_link"/>
+                                <div class="text-muted">YouTube channel URL</div>
+                                <field name="youtube_link"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="twitter_link"/>
+                                <div class="text-muted">Twitter / X page URL</div>
+                                <field name="twitter_link"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </xpath>
         </field>
     </record>

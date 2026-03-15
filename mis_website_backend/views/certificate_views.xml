@@ -8,13 +8,62 @@
             <form string="Certificate">
                 <sheet>
                     <group>
+                    <group>
                         <field name="name"/>
                         <field name="academic_year_id"/>
                         <field name="certificate_type"/>
-                        <field name="template_background" filename="template_background_name"/>
+                        <field name="issued_date"/>
+                        <field name="font_family"/>
                     </group>
+                    <group>
+                        <field name="primary_color"/>
+                        <field name="secondary_color"/>
+                        <field name="wave_color"/>
+                        <field name="background_opacity"/>
+                        <field name="medal_type"/>
+                    </group>
+                </group>
 
                     <notebook>
+
+                        <page string="Text">
+                        <group>
+                            <field name="school_name"/>
+                            <field name="school_subtitle"/>
+                            <field name="certificate_title_line1"/>
+                            <field name="certificate_title_line2"/>
+                            <field name="presented_text"/>
+                            <field name="description_text"/>
+                        </group>
+                    </page>
+
+                        <page string="Images">
+                        <group>
+                            <field name="template_background" widget="image"/>
+                            <field name="school_logo" widget="image"/>
+                            <field name="qr_code_image" widget="image"/>
+                        </group>
+                        <group string="Medals">
+                            <field name="medal_gold_image" widget="image"/>
+                            <field name="medal_silver_image" widget="image"/>
+                            <field name="medal_bronze_image" widget="image"/>
+                        </group>
+                    </page>
+
+                    <page string="Signatories">
+                        <group>
+                            <group string="Left Signatory">
+                                <field name="left_sign_name"/>
+                                <field name="left_sign_role"/>
+                                <field name="left_sign_image" widget="image"/>
+                            </group>
+                            <group string="Right Signatory">
+                                <field name="right_sign_name"/>
+                                <field name="right_sign_role"/>
+                                <field name="right_sign_image" widget="image"/>
+                            </group>
+                        </group>
+                    </page>
                         <page string="Students">
                             <field name="student_line_ids">
                                 <tree editable="bottom">
